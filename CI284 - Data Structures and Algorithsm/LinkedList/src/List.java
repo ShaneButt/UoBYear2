@@ -1,4 +1,6 @@
-public class List {
+import java.util.Comparator;
+
+public class List implements Comparator<Node> {
 
     private Node Head;
     private static int Size;
@@ -9,33 +11,11 @@ public class List {
         this.Size = 0;
     }
 
-    public void Add(Object data)
-    {
-        if(this.Head == null)
-            this.Head = new Node(data);
-
-        Node n = new Node(data);
+    public void Add(Object data, int priority) {
+        Node n = new Node(data, priority);
         Node current = this.Head;
-
-        if(current != null)
-        {
-            while(current.getTail() != null)
-            {
-                current = current.getTail();
-            }
-            current.setTail(n);
-        }
-        incrementSize();
-    }
-
-    public void Add(Object data, int index)
-    {
-        Node n = new Node(data);
-        Node current = this.Head;
-        if(current != null)
-        {
-            //From start to index (or last) position in the list
-            for(int i = 0; i < index && current.getTail()!=null; i++)
+        if (current != null) {
+            while (current.getTail() != null && compare(n, current.getTail()) >= 0)
             {
                 current = current.getTail();
             }
@@ -113,10 +93,16 @@ public class List {
             Node current = this.Head.getTail();
             while(current != null)
             {
-                s += "{" + current.getContent().toString() +"}"  + "->"; // "Example" -> "Example2"
+                s += "\n{" + current.getContent().toString() +"}"  + " -> "; // "Example" -> "Example2"
                 current = current.getTail();
             }
         }
         return s;
+    }
+
+    @Override
+    public int compare(Node n1, Node n2)
+    {
+        return n1.getPriority() - n2.getPriority();
     }
 }

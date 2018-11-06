@@ -1,23 +1,39 @@
-public class Node {
+public class Node implements Comparable<Node> {
 
     Object Content;
     Node Tail;
+    int Priority;
 
     public Node(Object data)
     {
         this.Tail = null;
         this.Content = data;
+        this.Priority = 1;
     }
 
-    public Node(Object data, Node tail)
+    public Node(Object data, int priority)
+    {
+        this.Content = data;
+        this.Priority = priority;
+        this.Tail = null;
+    }
+
+    public Node(Object data, Node tail, int priority)
     {
         this.Tail = tail;
         this.Content = data;
+        this.Priority = priority;
     }
 
     public Node getTail()
     {
         return Tail;
+    }
+
+    @Override
+    public int compareTo(Node node)
+    {
+        return (this.getPriority() - node.getPriority());
     }
 
     public void setTail(Node n)
@@ -34,4 +50,8 @@ public class Node {
     {
         this.Content = data;
     }
+
+    public int getPriority(){ return this.Priority; }
+
+    public void setPriority(int priority) { this.Priority=priority; }
 }
