@@ -1,23 +1,23 @@
 public class Ticket {
 
-    private String Creator;
-    private String Error;
-    private String Owner;
-    private int UID;
-    private int Severity;
+    private String Creator; // ticket submitter
+    private String Error; // ticket message
+    private String Owner; // ticket handler
+    private int UID; // ticket id
+    private int Priority; // ticket priority
 
     public Ticket()
     {
 
     }
 
-    public Ticket(String creator, String error, String owner, int id, int severity)
+    public Ticket(String creator, String error, String owner, int id, int priority)
     {
         Creator = creator;
         Error = error;
         Owner = owner;
         UID = id;
-        Severity = severity;
+        Priority = priority;
     }
 
     public String getCreator() {
@@ -52,21 +52,21 @@ public class Ticket {
         this.UID = UID;
     }
 
-    public int getSeverity() {
-        return Severity;
+    public int getPriority() {
+        return Priority;
     }
 
-    public void setSeverity(int severity) {
-        Severity = severity;
+    public void setPriority(int severity) {
+        Priority = severity;
     }
 
 
     @Override
     public String toString()
     {
-        return "\n\tz{creator: " + Creator + "}" +
-                "\n\t{id: " + UID + "}" +
-                "\n\t{severity: " + Severity + "}\n";
+        return "\n\t\t{creator: " + Creator + "}" +
+                "\n\t\t{id: " + UID + "}" +
+                "\n\t\t{severity: " + Priority + "}\n";
     }
 
 }
