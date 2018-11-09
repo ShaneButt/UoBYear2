@@ -20,12 +20,20 @@ public class List{
             n.setTail(current.getTail()); // set new node tail to current node's tail
             current.setTail(n); // set this node's tail to new node
             incrementSize(); // increment the size of the list
+            return n;
         }
-
+        this.Head = n;
         return n;
     }
 
-    public boolean Delete(int index)
+    public boolean DeleteAll()
+    {
+        this.Head = null;
+        Size = 0;
+        return true;
+    }
+
+    public boolean DeleteIndex(int index)
     {
         // Index Out Of Bounds Exception check
         if(index < 1 || index > Size())
@@ -47,7 +55,7 @@ public class List{
         return false;
     }
 
-    public boolean Delete(Node toDelete)
+    public boolean DeleteNode(Node toDelete)
     {
         if(toDelete==null) // Node must exist
             return false;
@@ -68,7 +76,10 @@ public class List{
             return false;
     }
 
-    public Object Find(int index)
+    //<summary>
+    // Retrieves the Data at a given position in the List
+    //</summary>
+    public Node Find(int index)
     {
         if(index < 0)
         {
@@ -85,12 +96,15 @@ public class List{
 
                 current = current.getTail();
             }
-            return current.getContent();
+            return current;
         }
         return current;
     }
 
-    public boolean Find(Node node)
+    //<summary>
+    // Simple check to see if the List contains an element using a linear search
+    //</summary>
+    public boolean Contains(Node node)
     {
         if(node == null)
         {
@@ -112,12 +126,24 @@ public class List{
         return false;
     }
 
+    //<summary>
+    /*
+        Simple method for updating a node
+        Firsts check if the input Node is not null and the replacing Data is also not null
+            If either check fails, the method returns null as it cannot perform an update without
+            either parameters
+        I then check if the priority entered is in range, if not sets it automatically to 5
+        Next we crawl through the list until we find Node toFind based on current.getTail()
+        Next we check to make sure that the tail of current is in fact toFind
+        Finally we DeleteNode(toFind) and Add(Data, Priority) to the List and return the newNode;
+     */
+    //</summary>
     public Node UpdateNode(Node toFind, Object Data, int Priority)
     {
         if(toFind == null || Data == null)
             return null;
 
-        if(Priority == 0)
+        if(Priority < 1 || Priority > 5)
             Priority = 5;
 
         Node current = this.Head;
@@ -131,7 +157,7 @@ public class List{
         if(current.getTail() == toFind)
         {
             toFind = current.getTail();
-            boolean success = this.Delete(toFind);
+            boolean success = this.DeleteNode(toFind);
             Node newNode = this.Add(Data, Priority);
             return newNode;
         }
@@ -139,37 +165,65 @@ public class List{
         return null;
     }
 
+    //<summary>
+    // Simple check to see if the List is empty
+    //</summary>
+    public boolean isEmpty()
+    {
+        return this.Head==null;
+    }
+
+    //<summary>
+    // Simple method to return the size of the List
+    //</summary>
     public int Size()
     {
-        return this.Size;
+        return Size;
     }
 
-    public void incrementSize()
+    //<summary>
+    // Simple size incrementing method
+    //</summary>
+    private void incrementSize()
     {
-        this.Size++;
+        Size++;
     }
 
-    public void decrementSize()
+    //<summary>
+    // Simple size decrementing method
+    //</summary>
+    private void decrementSize()
     {
-        this.Size--;
+        Size--;
     }
 
+    //<summary>
+    // Simple override method for toString()
+    // Allowing to output the array without having
+    // The Object method toString() output  the className and HashCode
+    //</summary>
     public String toString()
     {
         String s = "";
+        StringBuilder sb = new StringBuilder();
+        sb.append(s);
         if(this.Head!=null)
         {
             Node current = this.Head.getTail();
             while(current != null)
             {
-                s += "\n\t{" + current.getContent().toString() +"\t}"  + ";"; // "Example" -> "Example2"
+                sb.append("\n\t{").append(current.getContent().toString()).append("\t}").append(";"); // "Example" -> "Example2"
                 current = current.getTail();
             }
         }
-        return s;
+        return sb.toString();
     }
 
-    public int CompareNodePriority(Node n1, Node n2)
+    //<summary>
+    // Simple integer comparison method
+    // Subtracts the currentNode's priority from the newNode's Priority
+    //</summary>
+    private int CompareNodePriority(Node n1, Node n2)
     {
         return n1.getPriority() - n2.getPriority();
     }

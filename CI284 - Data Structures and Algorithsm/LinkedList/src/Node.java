@@ -48,4 +48,10 @@ public class Node {
     public int getPriority(){ return this.Priority; }
 
     public void setPriority(int priority) { this.Priority=priority; }
+
+    @Override
+    public String toString()
+    {
+        return getContent().toString();
+    }
 }
