@@ -1,9 +1,9 @@
 public class Ticket {
 
-    private String Creator; // ticket submitter
-    private String Error; // ticket message
-    private String Owner; // ticket handler
-    private int UID; // ticket id
+    private String Submitter; // ticket submitter
+    private String ErrorMessage; // ticket message
+    private String EmployeeHandler; // ticket handler
+    private int UniqueIdentifier; // ticket id
     private int Priority; // ticket priority
 
     public Ticket()
@@ -11,45 +11,45 @@ public class Ticket {
 
     }
 
-    public Ticket(String creator, String error, String owner, int id, int priority)
+    public Ticket(String submitter, String errorMessage, String employeeHandler, int uniqueIdentifier, int priority)
     {
-        Creator = creator;
-        Error = error;
-        Owner = owner;
-        UID = id;
+        Submitter = submitter;
+        ErrorMessage = errorMessage;
+        EmployeeHandler = employeeHandler;
+        UniqueIdentifier = uniqueIdentifier;
         Priority = priority;
     }
 
     public String getCreator() {
-        return Creator;
+        return Submitter;
     }
 
-    public void setCreator(String creator) {
-        Creator = creator;
+    public void setCreator(String submitter) {
+        Submitter = submitter;
     }
 
     public String getError() {
-        return Error;
+        return ErrorMessage;
     }
 
     public void setError(String error) {
-        Error = error;
+        ErrorMessage = error;
     }
 
     public String getOwner() {
-        return Owner;
+        return EmployeeHandler;
     }
 
-    public void setOwner(String owner) {
-        Owner = owner;
+    public void setOwner(String employeeHandler) {
+        EmployeeHandler = employeeHandler;
     }
 
     public int getUID() {
-        return UID;
+        return UniqueIdentifier;
     }
 
     public void setUID(int UID) {
-        this.UID = UID;
+        this.UniqueIdentifier = UID;
     }
 
     public int getPriority() {
@@ -64,8 +64,9 @@ public class Ticket {
     @Override
     public String toString()
     {
-        return "\n\t\t{creator: " + Creator + "}" +
-                "\n\t\t{id: " + UID + "}" +
+        return "\n\t\t{creator: " + Submitter + "}" +
+                "\n\t\t{id: " + UniqueIdentifier + "}" +
+                "\n\t\t{handler: " + EmployeeHandler + "}" +
                 "\n\t\t{severity: " + Priority + "}\n";
     }
 
