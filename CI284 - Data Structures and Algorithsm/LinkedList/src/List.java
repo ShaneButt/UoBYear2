@@ -127,6 +127,31 @@ public class List{
     }
 
     //<summary>
+    // Simple check to see if the List contains an element that has certain data using a linear search
+    //</summary>
+    public boolean Contains(Object data)
+    {
+        if(data == null)
+        {
+            return false; // cannot have an index lower than 0
+        }
+
+        Node current = null;
+        if(this.Head != null)
+        {
+            current = this.Head.getTail();
+            while(current.getContent()!=data)
+            {
+                if(current.getTail() == null)
+                    return false;
+                current = current.getTail();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    //<summary>
     /*
         Simple method for updating a node
         Firsts check if the input Node is not null and the replacing Data is also not null

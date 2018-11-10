@@ -69,5 +69,4 @@ public class Ticket {
                 "\n\t\t{handler: " + EmployeeHandler + "}" +
                 "\n\t\t{severity: " + Priority + "}\n";
     }
-
 }

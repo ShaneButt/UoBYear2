@@ -18,6 +18,7 @@ public class ListTest {
         // Extra Ticket for method testing;
         Ticket elena = new Ticket("Elena Barry","Software Issue", "Michael Jordan", 5, 1);
 
+
         // Outputs
 
         // Tests the toString() override;
@@ -38,6 +39,9 @@ public class ListTest {
 
         // Tests the Contains(Node node) method;
         System.out.println("Contains(Node ElenaNode): " + list.Contains(elenaNode));
+
+        // Tests the Contains(Object data) method;
+        System.out.println("Contains(Object elena): " + list.Contains(elena));
 
         // Tests the Size() method;
         System.out.println("Size(): " + list.Size());
@@ -60,5 +64,6 @@ public class ListTest {
 
         // Tests the toString() override method;
         System.out.println("ToString(): " + list);
+
     }
 }
