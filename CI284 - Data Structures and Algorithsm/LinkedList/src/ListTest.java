@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class ListTest {
     public static void main(String[] args)
     {
@@ -29,6 +31,14 @@ public class ListTest {
         // Tests the toString() override;
         System.out.println("ToString(): " + list);
 
+        // Test Peek() method;
+        try {
+            System.out.println("Peek()ing: " + list.Peek());
+        } catch(NoSuchElementException e)
+        {
+            System.out.println("List must be empty");
+        }
+
         // Tests the Size() method;
         System.out.println("Size(): " + list.Size());
 
@@ -54,6 +64,7 @@ public class ListTest {
         // Tests the toString() override method;
         System.out.println("ToString(): " + list);
 
+
         // Tests the isEmpty() method;
         System.out.println("isEmpty(): " + list.isEmpty());
 
@@ -69,6 +80,5 @@ public class ListTest {
 
         // Tests the toString() override method;
         System.out.println("ToString(): " + list);
-
     }
 }

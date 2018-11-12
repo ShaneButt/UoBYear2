@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class List{
 
     private Node Head;
@@ -149,6 +151,13 @@ public class List{
             return true;
         }
         return false;
+    }
+
+    public Node Peek() throws NullPointerException
+    {
+        if (this.Head.getTail() != null)
+            return this.Head.getTail();
+        throw new NullPointerException();
     }
 
     //<summary>
