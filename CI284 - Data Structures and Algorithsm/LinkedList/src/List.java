@@ -3,12 +3,12 @@ import java.util.NoSuchElementException;
 public class List{
 
     private Node Head;
-    private static int Size;
+    private int Size;
 
     public List() // empty list constructor
     {
         this.Head = new Node(null);
-        this.Size = 0;
+        ChangeSize(0);
     }
 
     public Node Add(Object data, int priority) {
@@ -78,7 +78,25 @@ public class List{
             return false;
     }
 
-    //<summary>
+    public boolean Delete(Object Data)
+	{
+		Node current = null;
+		if(this.Head != null) {
+			current = this.Head;
+			while(current.getTail().getContent() != Data)
+			{
+				if(current.getTail() == null)
+					return false;
+				current = current.getTail();
+			}
+			current.setTail(current.getTail().getTail());
+			decrementSize();
+			return true;
+		}
+		return false;
+	}
+
+	//<summary>
     // Retrieves the Data at a given position in the List
     //</summary>
     public Node Find(int index)
@@ -102,6 +120,28 @@ public class List{
         }
         return current;
     }
+    
+    public boolean Find(Object data)
+    {
+        if(data == null)
+        {
+            return false; // cannot have a null search
+        }
+
+        Node current = null;
+        if(this.Head != null)
+        {
+            current = this.Head;
+            while(current.getTail().getContent()!=data)
+            {
+                if(current.getTail() == null)
+                    return false;
+                current = current.getTail();
+            }
+            return current.getTail().getContent()==data;
+        }
+        return false;
+    }
 
     //<summary>
     // Simple check to see if the List contains an element using a linear search
@@ -110,7 +150,7 @@ public class List{
     {
         if(node == null)
         {
-            return false; // cannot have an index lower than 0
+            return false; // cannot have a null Node search
         }
 
         Node current = null;
@@ -135,7 +175,7 @@ public class List{
     {
         if(data == null)
         {
-            return false; // cannot have an index lower than 0
+            return false; // cannot a null data to search for
         }
 
         Node current = null;
@@ -159,7 +199,7 @@ public class List{
             return this.Head.getTail();
         throw new NullPointerException();
     }
-
+    
     //<summary>
     /*
         Simple method for updating a node
@@ -172,31 +212,29 @@ public class List{
         Finally we DeleteNode(toFind) and Add(Data, Priority) to the List and return the newNode;
      */
     //</summary>
-    public Node UpdateNode(Node toFind, Object Data, int Priority)
+    public Node UpdateNode(Node toFind, Object Data, int Priority) throws NoSuchElementException
     {
         if(toFind == null || Data == null)
-            return null;
-
+            throw new NoSuchElementException();
         if(Priority < 1 || Priority > 5)
             Priority = 5;
-
-        Node current = this.Head;
-        while(current.getTail()!=toFind)
+        
+        Node current = null;
+        if(this.Head != null)
         {
-            if(current.getTail()==null)
-                return null;
-            current = current.getTail();
+        	current = this.Head;
+        	while(current.getTail() != toFind)
+        	{
+        		if(current.getTail()==null)
+        			throw new NoSuchElementException();
+        		current = current.getTail();
+        	}
+        	toFind = current.getTail();
+        	this.DeleteNode(toFind);
+        	return this.Add(Data,  Priority);
+        		
         }
-
-        if(current.getTail() == toFind)
-        {
-            toFind = current.getTail();
-            boolean success = this.DeleteNode(toFind);
-            Node newNode = this.Add(Data, Priority);
-            return newNode;
-        }
-
-        return null;
+        throw new NoSuchElementException();
     }
 
     //<summary>
@@ -216,6 +254,28 @@ public class List{
     }
 
     //<summary>
+	// Simple override method for toString()
+	// Allowing to output the array without having
+	// The Object method toString() output  the className and HashCode
+	//</summary>
+	public String toString()
+	{
+	    String s = "";
+	    StringBuilder sb = new StringBuilder();
+	    sb.append(s);
+	    if(this.Head!=null)
+	    {
+	        Node current = this.Head.getTail();
+	        while(current != null)
+	        {
+	            sb.append("\n\t{").append(current.getContent().toString()).append("\t}").append(";"); // "Example" -> "Example2"
+	            current = current.getTail();
+	        }
+	    }
+	    return sb.toString();
+	}
+
+	//<summary>
     // Simple size incrementing method
     //</summary>
     private void incrementSize()
@@ -230,27 +290,10 @@ public class List{
     {
         Size--;
     }
-
-    //<summary>
-    // Simple override method for toString()
-    // Allowing to output the array without having
-    // The Object method toString() output  the className and HashCode
-    //</summary>
-    public String toString()
+    
+    private void ChangeSize(int newSize)
     {
-        String s = "";
-        StringBuilder sb = new StringBuilder();
-        sb.append(s);
-        if(this.Head!=null)
-        {
-            Node current = this.Head.getTail();
-            while(current != null)
-            {
-                sb.append("\n\t{").append(current.getContent().toString()).append("\t}").append(";"); // "Example" -> "Example2"
-                current = current.getTail();
-            }
-        }
-        return sb.toString();
+    	Size = newSize;
     }
 
     //<summary>

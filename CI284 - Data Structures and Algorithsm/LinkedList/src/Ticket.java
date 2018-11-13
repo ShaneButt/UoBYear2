@@ -8,7 +8,11 @@ public class Ticket {
 
     public Ticket()
     {
-
+    	Submitter = null;
+    	ErrorMessage = null;
+    	EmployeeHandler = null;
+    	UniqueIdentifier = 0;
+    	Priority = 5;
     }
 
     public Ticket(String submitter, String errorMessage, String employeeHandler, int uniqueIdentifier, int priority)

@@ -1,6 +1,7 @@
 import java.util.NoSuchElementException;
 
 public class ListTest {
+	@SuppressWarnings("unused")
     public static void main(String[] args)
     {
         List list = new List(); // Construct an empty list;
@@ -26,7 +27,7 @@ public class ListTest {
                 "Software Issue", "Michael Jordan", 5, 1);
 
 
-        // Outputs
+        // Output Tests
 
         // Tests the toString() override;
         System.out.println("ToString(): " + list);
@@ -34,7 +35,7 @@ public class ListTest {
         // Test Peek() method;
         try {
             System.out.println("Peek()ing: " + list.Peek());
-        } catch(NoSuchElementException e)
+        } catch(NullPointerException e)
         {
             System.out.println("List must be empty");
         }
@@ -45,12 +46,34 @@ public class ListTest {
         // Tests the Find(int index:) method;
         System.out.println("Find(int 3): " + list.Find(3));
 
+        // Tests the Find(Object Data) method;
+        System.out.println("Find(Jack's Ticket): " + list.Find(jack));
+        
+        // Tests the Delete(Object Data) method;
+        System.out.println("Delete(Jack's Ticket): " + list.Delete(jack));
+        
+        // Tests the Contains(Object Data) method;
+        System.out.println("Contains(Jack's Ticket): " + list.Contains(jack));
+        
+        // Check the content of the list
+        System.out.println("List: " + list);
+        
         // Tests the DeleteIndex(int index:) method;
         System.out.println("DeleteIndex(int 2): " + list.DeleteIndex(2));
+        
+        // Check the content of the list
+        System.out.println("List: " + list);
 
         // Constructs a Node out of the extra Ticket we made earlier;
         // Utilising the UpdateNode(Node oldNode, Object data, int Priority) method;
-        Node elenaNode = list.UpdateNode(jackNode, elena, elena.getPriority());
+        Node elenaNode = null;
+        try {
+        	elenaNode = list.UpdateNode(marcNode, elena, elena.getPriority());
+        	System.out.println("Successfully updated MarcNode with Elena");
+        } catch(NoSuchElementException ex)
+        {
+        	System.out.println("Could not update node, previous node, or head of list, does not exist!");
+        }
 
         // Tests the Contains(Node node) method;
         System.out.println("Contains(Node ElenaNode): " + list.Contains(elenaNode));
@@ -63,7 +86,6 @@ public class ListTest {
 
         // Tests the toString() override method;
         System.out.println("ToString(): " + list);
-
 
         // Tests the isEmpty() method;
         System.out.println("isEmpty(): " + list.isEmpty());
@@ -80,5 +102,13 @@ public class ListTest {
 
         // Tests the toString() override method;
         System.out.println("ToString(): " + list);
+        
+        try {
+        	Node n = list.UpdateNode(elenaNode, marc, marc.getPriority());
+        } catch (NoSuchElementException e)
+        {
+        	System.out.println("Testing for the sake of it");
+        }
+        
     }
 }
