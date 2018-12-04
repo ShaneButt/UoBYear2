@@ -6,10 +6,16 @@ public class Chromosome implements Comparable<Chromosome> {
     private boolean IsSelected; // selected for the breeding cycle
     private double SelectionChance; // chance of being selected for the breed cycle
 
-    public Chromosome(int size)
+    public Chromosome(int size, String[][] userBoard)
     {
         MaxSize = size;
-        Queens = new int[MaxSize];
+        /*
+         * UserBoard = 3D String array containing the User's Queen
+         * Queens is a 2D Integer array to hold the Queens y position
+         * Need to make Queens a 3D String array so that there is no loss in data (position of queen)
+         *      and also so that it works consistently with the rest of the program;
+         */
+        Queens = new int[MaxSize]; // This needs to chage;
         Fitness = 0.0;
         Conflictions = 0;
         IsSelected = false;
