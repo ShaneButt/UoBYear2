@@ -4,6 +4,7 @@ public class Algorithm {
     private Board thisBoard;
     private Queen firstQueen;
     private ArrayList<Queen> Queens = new ArrayList<Queen>(8);
+    private ArrayList<Tile[]> Safe;
     private int iterations;
 
     public Algorithm(Board b, Queen q) {
@@ -11,6 +12,7 @@ public class Algorithm {
         firstQueen = q;
         Queens.add(q);
         iterations = 0;
+        Safe = thisBoard.safeTiles();
     }
 
     public boolean Solve(int queensToPlace, ArrayList<Tile[]> tiles) {

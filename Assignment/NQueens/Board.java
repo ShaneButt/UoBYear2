@@ -27,6 +27,21 @@ public class Board {
         }
     }
 
+    public Queen PlaceMyQueen(String pos) {
+        Scanner sc = new Scanner(System.in);
+        int letter = pos.toLowerCase().charAt(0) - 97;
+        int number = Integer.parseInt(pos.substring(1, 2)) - 1;
+
+        if ((letter < 0 || number < 0) || (letter > Width || number > Width)) // ArrayIndexOutOfBounds Catch
+        {
+            System.out.println("Please enter a valid position...");
+            return PlaceMyQueen(sc.next());
+        }
+        sc.close();
+        Queen q = new Queen(this, Tiles.get(number), number, letter, TileState.MYQUEEN);
+        q.GenerateConflicts();
+        return q;
+    }
 
     public Queen PlaceQueen(String pos) {
         Scanner sc = new Scanner(System.in);
@@ -39,13 +54,13 @@ public class Board {
             return PlaceQueen(sc.next());
         }
         sc.close();
-        Queen q = new Queen(this, Tiles.get(number), number, letter);
+        Queen q = new Queen(this, Tiles.get(number), number, letter, TileState.QUEEN);
         q.GenerateConflicts();
         return q;
     }
 
     public Queen PlaceQueen(int row, int col) {
-        Queen q = new Queen(this, Tiles.get(row), row, col);
+        Queen q = new Queen(this, Tiles.get(row), row, col, TileState.QUEEN);
         q.GenerateConflicts();
         return q;
     }
@@ -53,6 +68,18 @@ public class Board {
     public void RemoveQueen(Queen q) {
         q.CheckDiagonals(TileState.EMPTY);
         q.GetQueenTile().SetState(TileState.EMPTY);
+    }
+
+    public ArrayList<Tile[]> safeTiles() {
+        ArrayList<Tile[]> tiles = this.Tiles;
+        for (Tile[] column : tiles) {
+            for (Tile t : column) {
+                if (t.GetState() != TileState.EMPTY) {
+                    tiles.remove(t);
+                }
+            }
+        }
+        return tiles;
     }
 
     public void Display() {

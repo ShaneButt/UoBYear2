@@ -9,7 +9,7 @@ public class Main {
         Board b = new Board();
         System.out.println("Please enter the position of the first Queen");
         String pos = scanner.nextLine();
-        Queen q = b.PlaceQueen(pos);
+        Queen q = b.PlaceMyQueen(pos);
         System.out.println("Current Board layout:");
         b.Display();
         Algorithm a = new Algorithm(b, q);

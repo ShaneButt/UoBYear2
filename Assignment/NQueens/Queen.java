@@ -6,14 +6,19 @@ public class Queen {
     private Tile[] Row;
     private int iRow;
     private int iCol;
+    public String QUEEN_CHAR = "Q";
 
-    public Queen(Board b, Tile[] Row, int iRow, int iCol) {
+    public Queen() {
+
+    }
+
+    public Queen(Board b, Tile[] Row, int iRow, int iCol, TileState QueenState) {
         thisBoard = b;
         this.Row = Row;
         this.iRow = iRow;
         this.iCol = iCol;
         QueenTile = Row[this.iCol];
-        QueenTile.SetState(TileState.QUEEN);
+        QueenTile.SetState(QueenState);
     }
 
     public void GenerateConflicts() {
@@ -31,7 +36,7 @@ public class Queen {
                         || (iRow + dif == x)
                         || (iRow - dif == x)) {
                     Tile t = tiles.get(x)[y];
-                    if (t.GetState() != TileState.QUEEN) {
+                    if (t.GetState() != TileState.QUEEN && t.GetState() != TileState.MYQUEEN) {
                         t.SetState(state);
                     }
                 }

@@ -32,6 +32,8 @@ public class Tile {
         switch (thisState) {
             case EMPTY:
                 return ".";
+            case MYQUEEN:
+                return "M";
             case QUEEN:
                 return "Q";
             case CONFLICT:

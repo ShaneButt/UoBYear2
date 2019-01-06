@@ -1,3 +1,3 @@
 public enum TileState {
-    QUEEN, EMPTY, CONFLICT
+    MYQUEEN, QUEEN, EMPTY, CONFLICT
 }
