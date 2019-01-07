@@ -4,14 +4,15 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("Information:\n- M = User Queen\n- Q = Generated Queen\n- X = Conflicting tile\n\nOutputs one singular solution to a given placement of a Queen.\n");
         Scanner scanner = new Scanner(System.in);
-        //System.out.println("Please enter the size of the board / number of desired queens to solve...\n");
         Board b = new Board();
         System.out.println("Please enter the position of the first Queen");
         String pos = scanner.nextLine();
         Queen q = b.PlaceMyQueen(pos);
         System.out.println("Current Board layout:");
         b.Display();
+        System.out.println();
         Algorithm a = new Algorithm(b, q);
         long start = Instant.now().toEpochMilli();
         boolean computed = a.Solve(7, b.Tiles());

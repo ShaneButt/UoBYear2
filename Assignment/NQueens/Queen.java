@@ -44,7 +44,6 @@ public class Queen {
         }
     }
 
-
     public Tile GetQueenTile() {
         return QueenTile;
     }

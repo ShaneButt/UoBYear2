@@ -8,12 +8,10 @@ public class Board {
     /*
      * Width: The board's width
      * Tiles: An ArrayList of columns of tiles
-     * Queens: A queen's row index
      *
      */
 
     public Board() {
-        //Width = size;
         setup();
     }
 
