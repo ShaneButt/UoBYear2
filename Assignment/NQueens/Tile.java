@@ -7,23 +7,23 @@ public class Tile {
         thisState = state;
     }
 
-    public void SetBoard(Board b) {
+    public void setBoard(Board b) {
         thisBoard = b;
     }
 
-    public Board GetBoard() {
+    public Board getBoard() {
         return thisBoard;
     }
 
-    public void SetState(TileState state) {
+    public void setState(TileState state) {
         thisState = state;
     }
 
-    public TileState GetState() {
+    public TileState getState() {
         return thisState;
     }
 
-    public boolean TileEmpty() {
+    public boolean tileEmpty() {
         return thisState == TileState.EMPTY;
     }
 

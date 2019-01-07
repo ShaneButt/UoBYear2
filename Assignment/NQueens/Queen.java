@@ -8,26 +8,22 @@ public class Queen {
     private int iCol;
     public String QUEEN_CHAR = "Q";
 
-    public Queen() {
-
-    }
-
     public Queen(Board b, Tile[] Row, int iRow, int iCol, TileState QueenState) {
         thisBoard = b;
         this.Row = Row;
         this.iRow = iRow;
         this.iCol = iCol;
         QueenTile = Row[this.iCol];
-        QueenTile.SetState(QueenState);
+        QueenTile.setState(QueenState);
     }
 
-    public void GenerateConflicts() {
-        CheckDiagonals(TileState.CONFLICT);
+    public void generateConflicts() {
+        checkDiagonals(TileState.CONFLICT);
     }
 
-    public void CheckDiagonals(TileState state) {
-        int width = thisBoard.GetWidth();
-        ArrayList<Tile[]> tiles = thisBoard.Tiles();
+    public void checkDiagonals(TileState state) {
+        int width = thisBoard.getWidth();
+        ArrayList<Tile[]> tiles = thisBoard.tiles();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < width; y++) {
                 int dif = Math.abs(y - iCol);
@@ -36,19 +32,19 @@ public class Queen {
                         || (iRow + dif == x)
                         || (iRow - dif == x)) {
                     Tile t = tiles.get(x)[y];
-                    if (t.GetState() != TileState.QUEEN && t.GetState() != TileState.MYQUEEN) {
-                        t.SetState(state);
+                    if (t.getState() != TileState.QUEEN && t.getState() != TileState.MYQUEEN) {
+                        t.setState(state);
                     }
                 }
             }
         }
     }
 
-    public Tile GetQueenTile() {
+    public Tile getQueenTile() {
         return QueenTile;
     }
 
-    public void SetQueenTile(Tile tile) {
+    public void setQueenTile(Tile tile) {
         QueenTile = tile;
     }
 
