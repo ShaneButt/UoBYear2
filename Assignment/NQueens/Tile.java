@@ -1,6 +1,6 @@
 public class Tile {
-    private Board thisBoard;
-    private TileState thisState;
+    private Board thisBoard; // the board the tile belongs to
+    private TileState thisState; // the state that belongs to the tile
 
     public Tile(Board board, TileState state) {
         thisBoard = board;
@@ -27,6 +27,10 @@ public class Tile {
         return thisState == TileState.EMPTY;
     }
 
+    /*
+        Simply overrides the toString() method of Object,
+        in order to Display the State, these can be modified, easily.
+     */
     @Override
     public String toString() {
         switch (thisState) {

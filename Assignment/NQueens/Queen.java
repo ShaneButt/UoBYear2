@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
 public class Queen {
-    private Board thisBoard;
-    private Tile QueenTile;
-    private Tile[] Row;
+    /*
+        Queen is effectively a psuedo-extension of Tile, without the junk
+     */
+    private Board thisBoard; // The board the Queen belongs to
+    private Tile QueenTile; // The tile the Queen is on
+    private Tile[] Row; // The row-array that the Queen is on
     private int iRow;
     private int iCol;
-    public String QUEEN_CHAR = "Q";
 
     public Queen(Board b, Tile[] Row, int iRow, int iCol, TileState QueenState) {
         thisBoard = b;
@@ -25,15 +27,15 @@ public class Queen {
         int width = thisBoard.getWidth();
         ArrayList<Tile[]> tiles = thisBoard.tiles();
         for (int x = 0; x < width; x++) {
-            for (int y = 0; y < width; y++) {
+            for (int y = 0; y < width; y++) { // Iterates through the Tiles of the board
                 int dif = Math.abs(y - iCol);
                 if ((iRow == x)
                         || (iCol == y)
                         || (iRow + dif == x)
-                        || (iRow - dif == x)) {
-                    Tile t = tiles.get(x)[y];
+                        || (iRow - dif == x)) { // Checks the axis and diagonals for conflicting tiles
+                    Tile t = tiles.get(x)[y]; // grabs the tile
                     if (t.getState() != TileState.QUEEN && t.getState() != TileState.MYQUEEN) {
-                        t.setState(state);
+                        t.setState(state); // Sets them to conflicting if the Tile is either a computer Queen or a user Queen.
                     }
                 }
             }
@@ -51,5 +53,5 @@ public class Queen {
     @Override
     public String toString() {
         return QueenTile.toString();
-    }
+    } // Utilises the Tile to display what the Queen is actually
 }

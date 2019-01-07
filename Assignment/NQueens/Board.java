@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Board {
 
-    private int Width = 8;
-    private ArrayList<Tile[]> Tiles = new ArrayList<Tile[]>();
+    private int Width = 8; // Board width/length
+    private ArrayList<Tile[]> Tiles = new ArrayList<Tile[]>(); //
     /*
      * Width: The board's width
      * Tiles: An ArrayList of columns of tiles
@@ -13,35 +13,42 @@ public class Board {
 
     public Board() {
         setup();
-    }
+    } // constructor
 
     private void setup() {
-        for (int x = 0; x < Width; x++) {
-            Tile[] Column = new Tile[Width];
-            for (int y = 0; y < Width; y++) {
-                Column[y] = new Tile(this, TileState.EMPTY);
+        for (int x = 0; x < Width; x++) { // Iterates through the rows
+            Tile[] Column = new Tile[Width]; // Grabs the column
+            for (int y = 0; y < Width; y++) { // Iterates through the column
+                Column[y] = new Tile(this, TileState.EMPTY); // Fills the column with Empty Tiles
             }
-            Tiles.add(Column);
+            Tiles.add(Column); // Adds the column to the Tiles arraylist
         }
     }
+
+
+    /*  Returning the queen in the following
+        methods allows them to be used later on
+        in other parts of the program.
+     */
 
     public Queen placeMyQueen(String pos) {
         Scanner sc = new Scanner(System.in);
-        int letter = pos.toLowerCase().charAt(0) - 97;
-        int number = Integer.parseInt(pos.substring(1, 2)) - 1;
+        int letter = pos.toLowerCase().charAt(0) - 97; // changes letter to lowercase, subtracts the ascii code for ('a'+1) to make it 0-based
+        int number = Integer.parseInt(pos.substring(1, 2)) - 1; // attempt to parse '1' as 1, then subtracts 0 to make it 0-based
 
         if ((letter < 0 || number < 0) || (letter > Width || number > Width)) // ArrayIndexOutOfBounds Catch
         {
-            System.out.println("Please enter a valid position...");
-            return placeMyQueen(sc.next());
+            System.out.println("Please enter a valid position..."); // Not valid, try again
+            return placeMyQueen(sc.next()); // Recursive call until a valid position is entered
         }
         sc.close();
-        Queen q = new Queen(this, Tiles.get(number), number, letter, TileState.MYQUEEN);
-        q.generateConflicts();
+        Queen q = new Queen(this, Tiles.get(number), number, letter, TileState.MYQUEEN); // Construct a new queen, as MyQueen state
+        q.generateConflicts(); // Generate the conflicts on the board for the queen
         return q;
     }
 
     public Queen placeQueen(String pos) {
+        // same as above other than commented lines
         Scanner sc = new Scanner(System.in);
         int letter = pos.toLowerCase().charAt(0) - 97;
         int number = Integer.parseInt(pos.substring(1, 2)) - 1;
@@ -52,28 +59,29 @@ public class Board {
             return placeQueen(sc.next());
         }
         sc.close();
-        Queen q = new Queen(this, Tiles.get(number), number, letter, TileState.QUEEN);
+        Queen q = new Queen(this, Tiles.get(number), number, letter, TileState.QUEEN); // Constructs a new queen, as Queen state.
         q.generateConflicts();
         return q;
     }
 
     public Queen placeQueen(int row, int col) {
-        Queen q = new Queen(this, Tiles.get(row), row, col, TileState.QUEEN);
-        q.generateConflicts();
+        Queen q = new Queen(this, Tiles.get(row), row, col, TileState.QUEEN); // Constructs a new queen as Queen state, at a specific location
+        q.generateConflicts(); // Generates the conflicts for the queen
         return q;
     }
 
     public void removeQueen(Queen q) {
-        q.checkDiagonals(TileState.EMPTY);
-        q.getQueenTile().setState(TileState.EMPTY);
+        q.checkDiagonals(TileState.EMPTY); // Make the conflicting tiles now empty (this has an issue with unconflicting actually conflicting tiles because of other queens
+        // hence the "regenerateConflicts" method in Algorithm.java
+        q.getQueenTile().setState(TileState.EMPTY); // Set the queen tile to empty
     }
 
-    public ArrayList<Tile[]> safeTiles() {
-        ArrayList<Tile[]> tiles = this.Tiles;
-        for (Tile[] column : tiles) {
-            for (Tile t : column) {
-                if (t.getState() != TileState.EMPTY) {
-                    tiles.remove(t);
+    public ArrayList<Tile> safeTiles() {
+        ArrayList<Tile> tiles = new ArrayList<Tile>();
+        for (Tile[] column : this.Tiles) {
+            for (Tile t : column) { // Iterates through the rows and columns of the Tile[] ArrayList, Tiles.
+                if (t.getState() == TileState.EMPTY) { // Checks if they're empty
+                    tiles.add(t); // In this case, they are not conflicting or otherwise valid placements
                 }
             }
         }
@@ -81,12 +89,13 @@ public class Board {
     }
 
     public void display() {
-        System.out.println("\\|_A__B__C__D__E__F__G__H_");
+        // Iterates through the tiles on the board and displays their State (M, Q, X, .) - MyQueen, Queen, Conflict, Empty
+        System.out.println("\\|_A__B__C__D__E__F__G__H_"); // A-H for 0-7 x axis
         for (int col = 0; col < Tiles.size(); col++) {
-            System.out.print(col + 1 + "|");
+            System.out.print(col + 1 + "|"); // 1-8 for 0-7 y axis
             for (int row = 0; row < Width; row++) {
                 Tile t = Tiles.get(col)[row];
-                System.out.print(" " + t + " ");
+                System.out.print(" " + t + " "); // Displays state
             }
             System.out.println();
         }
