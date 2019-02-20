@@ -15,27 +15,34 @@ public class Algorithm {
         Safe = thisBoard.safeTiles();
     }
 
-    public boolean solve(int queensToPlace, ArrayList<Tile[]> tiles) {
+    public boolean solve(int queensToPlace, ArrayList<Tile[]> tiles, ArrayList<Tile> safe) {
         if (queensToPlace == 0) { // Have we reached the end / Placed all queens?
             return true; // Yes, return true.
         }
+        regenerateConflicts();
         // No, iterate up
         iterations++;
         int width = thisBoard.getWidth();
+        //System.out.println(iterations);
+        thisBoard.display();
+        System.out.println("ALGORITHM [" + iterations + "]: " + safe.size());
 
-        for (int y = 0; y < width; y++) {
-            for (int x = 0; x < width; x++) {
-                // Nested for loop for x and y values.
-                Tile t = tiles.get(x)[y]; // Grabs the current Tile
-                if (t.tileEmpty()) { // Is the tile free to place a queen on?
-                    Queen q = thisBoard.placeQueen(x, y); // Places a queen at the current location
-                    Queens.add(q); // Adds it to the Queens array list
-                    if (solve(queensToPlace - 1, thisBoard.tiles())) // Can we find a solution with this queen?
-                        return true; // If yes, return true
-                    Queens.remove(q); // Else remove the queen from the array
-                    thisBoard.removeQueen(q); // and remove it off the board
-                    regenerateConflicts(); // Simple regeneration of conflicting tiles
-                }
+        while(Queens.size() <= queensToPlace)
+        {
+            for(int i = 0; i < safe.size(); i++)
+            {
+                Tile t = safe.get(i);
+                Queen q = thisBoard.placeQueen(t.getRow(), t.getCol());
+                Queens.add(q);
+                if(solve(queensToPlace-1, thisBoard.tiles(), thisBoard.safeTiles()))
+                    return true;
+                Queens.remove(q);
+                thisBoard.removeQueen(q);
+                regenerateConflicts();
+                queensToPlace--;
+                safe = thisBoard.safeTiles();
+                System.out.println(safe);
+                i -= Math.abs((thisBoard.safeTiles().size()-safe.size()));
             }
         }
         return false;

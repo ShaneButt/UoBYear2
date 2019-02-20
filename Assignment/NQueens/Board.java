@@ -4,7 +4,8 @@ import java.util.Scanner;
 public class Board {
 
     private int Width = 8; // Board width/length
-    private ArrayList<Tile[]> Tiles = new ArrayList<Tile[]>(); //
+    private ArrayList<Tile[]> Tiles = new ArrayList<Tile[]>(Width*Width); //
+    private ArrayList<Tile> Safe = new ArrayList<Tile>(Width*Width);
     /*
      * Width: The board's width
      * Tiles: An ArrayList of columns of tiles
@@ -19,10 +20,13 @@ public class Board {
         for (int x = 0; x < Width; x++) { // Iterates through the rows
             Tile[] Column = new Tile[Width]; // Grabs the column
             for (int y = 0; y < Width; y++) { // Iterates through the column
-                Column[y] = new Tile(this, TileState.EMPTY); // Fills the column with Empty Tiles
+                Tile t = new Tile(this, TileState.EMPTY, x, y); // Fills the column with Empty Tiles
+                Column[y] = t;
+                Safe.add(t);
             }
             Tiles.add(Column); // Adds the column to the Tiles arraylist
         }
+        System.out.println("SETUP SAFE: " + Safe.size());
     }
 
 
@@ -76,18 +80,6 @@ public class Board {
         q.getQueenTile().setState(TileState.EMPTY); // Set the queen tile to empty
     }
 
-    public ArrayList<Tile> safeTiles() {
-        ArrayList<Tile> tiles = new ArrayList<Tile>();
-        for (Tile[] column : this.Tiles) {
-            for (Tile t : column) { // Iterates through the rows and columns of the Tile[] ArrayList, Tiles.
-                if (t.getState() == TileState.EMPTY) { // Checks if they're empty
-                    tiles.add(t); // In this case, they are not conflicting or otherwise valid placements
-                }
-            }
-        }
-        return tiles;
-    }
-
     public void display() {
         // Iterates through the tiles on the board and displays their State (M, Q, X, .) - MyQueen, Queen, Conflict, Empty
         System.out.println("\\|_A__B__C__D__E__F__G__H_"); // A-H for 0-7 x axis
@@ -100,6 +92,10 @@ public class Board {
             System.out.println();
         }
     }
+
+    public ArrayList<Tile> safeTiles() { return Safe; }
+
+    public void setSafe(ArrayList<Tile> safeTiles) { Safe = safeTiles; }
 
     public int getWidth() {
         return this.Width;

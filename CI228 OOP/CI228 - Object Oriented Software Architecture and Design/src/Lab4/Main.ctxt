@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Main
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=
+comment2.target=void\ execute()
+comment3.params=params
+comment3.target=void\ check(java.lang.String[])
+comment4.params=action\ value
+comment4.target=void\ perform(java.lang.String,\ double)
+comment5.params=
+comment5.target=void\ state()
+comment6.params=res
+comment6.target=void\ state(boolean)
+comment7.params=res
+comment7.target=void\ state(double)
+comment8.params=ab\ aName
+comment8.target=boolean\ methodExists(AccountBetter2,\ java.lang.String)
+numComments=9

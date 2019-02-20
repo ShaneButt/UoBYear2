@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b11fe836-9597-409e-949f-0f00f9b49e73" name="Default Changelist" comment="" />
+    <list default="true" id="b11fe836-9597-409e-949f-0f00f9b49e73" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,85 +40,18 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="1082049908">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/GeneticAlgorithm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="695">
-              <caret line="218" column="55" selection-start-line="218" selection-start-column="55" selection-end-line="218" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#4954#4955#0" expanded="true" />
-                <element signature="e#5024#5025#0" expanded="true" />
-                <element signature="e#5063#5064#0" expanded="true" />
-                <element signature="e#5100#5101#0" expanded="true" />
-                <element signature="e#5133#5134#0" expanded="true" />
-                <element signature="e#5165#5166#0" expanded="true" />
-                <element signature="e#5204#5205#0" expanded="true" />
-                <element signature="e#5239#5240#0" expanded="true" />
-                <element signature="e#5278#5279#0" expanded="true" />
-                <element signature="e#5313#5314#0" expanded="true" />
-                <element signature="e#5349#5350#0" expanded="true" />
-                <element signature="e#5384#5385#0" expanded="true" />
-                <element signature="e#5420#5421#0" expanded="true" />
-                <element signature="e#5455#5456#0" expanded="true" />
-                <element signature="e#5491#5492#0" expanded="true" />
-                <element signature="e#5526#5527#0" expanded="true" />
-                <element signature="e#5560#5561#0" expanded="true" />
-                <element signature="e#5593#5594#0" expanded="true" />
-                <element signature="e#5627#5628#0" expanded="true" />
-                <element signature="e#5660#5661#0" expanded="true" />
-                <element signature="e#5712#5713#0" expanded="true" />
-                <element signature="e#5745#5746#0" expanded="true" />
-                <element signature="e#5794#5795#0" expanded="true" />
-                <element signature="e#5824#5825#0" expanded="true" />
-                <element signature="e#6094#6095#0" expanded="true" />
-                <element signature="e#6129#6130#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Chromosome.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="88" column="13" lean-forward="true" selection-start-line="88" selection-start-column="13" selection-end-line="88" selection-end-column="13" />
-              <folding>
-                <element signature="e#2850#2851#0" expanded="true" />
-                <element signature="e#2880#2881#0" expanded="true" />
-                <element signature="e#2923#2924#0" expanded="true" />
-                <element signature="e#2956#2957#0" expanded="true" />
-                <element signature="e#2988#2989#0" expanded="true" />
-                <element signature="e#3017#3018#0" expanded="true" />
-                <element signature="e#3092#3093#0" expanded="true" />
-                <element signature="e#3121#3122#0" expanded="true" />
-                <element signature="e#3125#3126#0" expanded="true" />
-                <element signature="e#3155#3156#0" expanded="true" />
-                <element signature="e#3201#3202#0" expanded="true" />
-                <element signature="e#3234#3235#0" expanded="true" />
-                <element signature="e#3270#3271#0" expanded="true" />
-                <element signature="e#3305#3306#0" expanded="true" />
-                <element signature="e#3358#3359#0" expanded="true" />
-                <element signature="e#3401#3402#0" expanded="true" />
-                <element signature="e#3436#3437#0" expanded="true" />
-                <element signature="e#3469#3470#0" expanded="true" />
-                <element signature="e#3518#3519#0" expanded="true" />
-                <element signature="e#3555#3556#0" expanded="true" />
-                <element signature="e#3597#3598#0" expanded="true" />
-                <element signature="e#3635#3636#0" expanded="true" />
-                <element signature="e#3697#3698#0" expanded="true" />
-                <element signature="e#3746#3747#0" expanded="true" />
-                <element signature="e#3800#3801#0" expanded="true" />
-                <element signature="e#3866#3867#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -124,6 +59,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -139,13 +77,12 @@
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -162,10 +99,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543068055014" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Assignment/NQueens" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RunDashboard">
@@ -195,18 +135,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24945295" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25382933" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -214,95 +150,38 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="7" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/NQueens.java">
+    <entry file="file://$PROJECT_DIR$/src/NQueens.java" />
+    <entry file="file://$PROJECT_DIR$/src/GeneticAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="4" lean-forward="true" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+        <state relative-caret-position="528">
+          <caret line="196" column="4" selection-start-line="196" selection-start-column="4" selection-end-line="196" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Chromosome.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
-          <caret line="88" column="13" lean-forward="true" selection-start-line="88" selection-start-column="13" selection-end-line="88" selection-end-column="13" />
-          <folding>
-            <element signature="e#2850#2851#0" expanded="true" />
-            <element signature="e#2880#2881#0" expanded="true" />
-            <element signature="e#2923#2924#0" expanded="true" />
-            <element signature="e#2956#2957#0" expanded="true" />
-            <element signature="e#2988#2989#0" expanded="true" />
-            <element signature="e#3017#3018#0" expanded="true" />
-            <element signature="e#3092#3093#0" expanded="true" />
-            <element signature="e#3121#3122#0" expanded="true" />
-            <element signature="e#3125#3126#0" expanded="true" />
-            <element signature="e#3155#3156#0" expanded="true" />
-            <element signature="e#3201#3202#0" expanded="true" />
-            <element signature="e#3234#3235#0" expanded="true" />
-            <element signature="e#3270#3271#0" expanded="true" />
-            <element signature="e#3305#3306#0" expanded="true" />
-            <element signature="e#3358#3359#0" expanded="true" />
-            <element signature="e#3401#3402#0" expanded="true" />
-            <element signature="e#3436#3437#0" expanded="true" />
-            <element signature="e#3469#3470#0" expanded="true" />
-            <element signature="e#3518#3519#0" expanded="true" />
-            <element signature="e#3555#3556#0" expanded="true" />
-            <element signature="e#3597#3598#0" expanded="true" />
-            <element signature="e#3635#3636#0" expanded="true" />
-            <element signature="e#3697#3698#0" expanded="true" />
-            <element signature="e#3746#3747#0" expanded="true" />
-            <element signature="e#3800#3801#0" expanded="true" />
-            <element signature="e#3866#3867#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GeneticAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="695">
-          <caret line="218" column="55" selection-start-line="218" selection-start-column="55" selection-end-line="218" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4954#4955#0" expanded="true" />
-            <element signature="e#5024#5025#0" expanded="true" />
-            <element signature="e#5063#5064#0" expanded="true" />
-            <element signature="e#5100#5101#0" expanded="true" />
-            <element signature="e#5133#5134#0" expanded="true" />
-            <element signature="e#5165#5166#0" expanded="true" />
-            <element signature="e#5204#5205#0" expanded="true" />
-            <element signature="e#5239#5240#0" expanded="true" />
-            <element signature="e#5278#5279#0" expanded="true" />
-            <element signature="e#5313#5314#0" expanded="true" />
-            <element signature="e#5349#5350#0" expanded="true" />
-            <element signature="e#5384#5385#0" expanded="true" />
-            <element signature="e#5420#5421#0" expanded="true" />
-            <element signature="e#5455#5456#0" expanded="true" />
-            <element signature="e#5491#5492#0" expanded="true" />
-            <element signature="e#5526#5527#0" expanded="true" />
-            <element signature="e#5560#5561#0" expanded="true" />
-            <element signature="e#5593#5594#0" expanded="true" />
-            <element signature="e#5627#5628#0" expanded="true" />
-            <element signature="e#5660#5661#0" expanded="true" />
-            <element signature="e#5712#5713#0" expanded="true" />
-            <element signature="e#5745#5746#0" expanded="true" />
-            <element signature="e#5794#5795#0" expanded="true" />
-            <element signature="e#5824#5825#0" expanded="true" />
-            <element signature="e#6094#6095#0" expanded="true" />
-            <element signature="e#6129#6130#0" expanded="true" />
-          </folding>
+          <caret line="88" column="5" selection-start-line="88" selection-start-column="5" selection-end-line="88" selection-end-column="5" />
         </state>
       </provider>
     </entry>

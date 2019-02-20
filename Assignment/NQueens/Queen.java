@@ -26,6 +26,7 @@ public class Queen {
     public void checkDiagonals(TileState state) {
         int width = thisBoard.getWidth();
         ArrayList<Tile[]> tiles = thisBoard.tiles();
+        ArrayList<Tile> safeTiles = thisBoard.safeTiles();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < width; y++) { // Iterates through the Tiles of the board
                 int dif = Math.abs(y - iCol);
@@ -37,9 +38,15 @@ public class Queen {
                     if (t.getState() != TileState.QUEEN && t.getState() != TileState.MYQUEEN) {
                         t.setState(state); // Sets them to conflicting if the Tile is either a computer Queen or a user Queen.
                     }
+                    TileState tState = t.getState();
+                    if( tState==TileState.CONFLICT || tState==TileState.QUEEN || tState==TileState.MYQUEEN)
+                    {
+                        safeTiles.remove(t);
+                    }
                 }
             }
         }
+        thisBoard.setSafe(safeTiles);
     }
 
     public Tile getQueenTile() {

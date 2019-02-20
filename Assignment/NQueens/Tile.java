@@ -1,10 +1,20 @@
 public class Tile {
     private Board thisBoard; // the board the tile belongs to
     private TileState thisState; // the state that belongs to the tile
+    private int row;
+    private int col;
 
     public Tile(Board board, TileState state) {
         thisBoard = board;
         thisState = state;
+    }
+
+    public Tile(Board board, TileState state, int x, int y)
+    {
+        thisBoard = board;
+        thisState = state;
+        row = x;
+        col = y;
     }
 
     public void setBoard(Board b) {
@@ -25,6 +35,14 @@ public class Tile {
 
     public boolean tileEmpty() {
         return thisState == TileState.EMPTY;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
     }
 
     /*

@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Transfer
+comment1.params=Sender\ Amount
+comment1.target=boolean\ transferFrom(Account,\ double)
+comment2.params=Target\ Amount
+comment2.target=boolean\ transferTo(Account,\ double)
+numComments=3

@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Account
+comment1.params=
+comment1.target=double\ getBalance()
+comment2.params=money
+comment2.target=double\ withdraw(double)
+comment3.params=money
+comment3.target=void\ deposit(double)
+comment4.params=money
+comment4.target=void\ setOverdraftLimit(double)
+comment5.params=
+comment5.target=double\ getOverdraftLimit()
+numComments=6
