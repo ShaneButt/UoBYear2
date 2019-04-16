@@ -2,7 +2,7 @@ package Assignment2;
 
 public class RoundRobin extends AScheduler {
 
-    public RoundRobin(Queue jobs)
+    public RoundRobin(Queue<Process> jobs)
     {
         super(jobs);
     }
@@ -11,5 +11,11 @@ public class RoundRobin extends AScheduler {
     public void run()
     {
 
+    }
+    
+    @Override
+    public void addReady(Process job)
+    {
+    	
     }
 }

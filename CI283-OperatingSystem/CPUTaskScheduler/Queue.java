@@ -1,8 +1,10 @@
 package Assignment2;
 
+import java.util.Iterator;
+
 import Assignment.Node;
 
-public class Queue<T>
+public class Queue<T> implements Iterable<T>
 {
 	
 	protected int Priority;
@@ -16,6 +18,11 @@ public class Queue<T>
 		this.Priority = Priority;
 	}
 	
+	public Queue() {
+		this.Front = null;
+		this.Priority = 1;
+	}
+
 	public void add(T Item)
 	{
 		Node<T> n = new Node<T>(Item, Priority);
@@ -34,6 +41,7 @@ public class Queue<T>
 			return;
 		}
 		this.Front = n;
+		incrementSize();
 		return;
 	}
 	
@@ -80,6 +88,8 @@ public class Queue<T>
 	
 	public T get(int index)
 	{
+		if(index == 0)
+			return this.Front.getContent();
 		if(index < 1 || index > size())
 			return null;
 		
@@ -93,9 +103,10 @@ public class Queue<T>
 					return null;
 				current = current.getNext();
 			}
-			T dataFound = current.getNext().getContent();
+			T dataFound = current.getContent();
 			return dataFound;
 		}
+		
 		return null;
 	}
 	
@@ -106,7 +117,7 @@ public class Queue<T>
 	
 	public int size()
 	{
-		return Size+1;
+		return Size;
 	}
 	
 	private int ComparePriority(Node<T> n1, Node<T> n2)
@@ -117,5 +128,34 @@ public class Queue<T>
 	public void setAlgorithm(AScheduler algorithm)
 	{
 		this.algorithm = algorithm;
+	}
+	
+	public AScheduler getAlgorithm()
+	{
+		return this.algorithm;
+	}
+
+	@Override
+	public Iterator<T> iterator() {
+		Iterator<T> it = new Iterator<T>() {
+
+			private int ind = 0;
+			
+			@Override
+			public boolean hasNext() {
+				return ind<size() && get(ind)!=null;
+			}
+
+			@Override
+			public T next() {
+				return get(ind++);
+			}
+			
+			public void remove()
+			{
+				throw new UnsupportedOperationException();
+			}
+		};
+		return it;
 	}
 }

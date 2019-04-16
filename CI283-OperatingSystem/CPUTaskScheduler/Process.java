@@ -8,14 +8,18 @@ public class Process
 	public int ExecutionTime;
 	public int WaitingTime;
 	public int BurstTime;
+	public int RemainingBurst;
 	public int Priority;
 	public int TurnaroundTime;
+	public boolean Executed = false;
+	private boolean Executing = false;
 		
 	public Process(int Id, int Arriving, int Burst, int Priority)
 	{
 		ProcessID = Id;
 		ArrivalTime = Arriving;
 		BurstTime = Burst;
+		RemainingBurst = Burst;
 		this.Priority = Priority;
 	}
 
@@ -37,7 +41,15 @@ public class Process
 	@Override
 	public String toString()
 	{
-		String s = String.format("%d { PID: %d; Arrival_Time: %d; Burst_Time: %d, Priority: %d", this.hashCode(), ProcessID, ArrivalTime, BurstTime, Priority);
+		String s = String.format("Process %-3d { Arrival_Time: %2d; Burst_Time: %2d, Priority: %2d", ProcessID, ArrivalTime, BurstTime, Priority);
 		return s;
+	}
+
+	public boolean isExecuting() {
+		return Executing;
+	}
+
+	public void setExecuting(boolean executing) {
+		Executing = executing;
 	}
 }
