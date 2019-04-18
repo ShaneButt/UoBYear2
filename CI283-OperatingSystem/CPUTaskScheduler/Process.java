@@ -10,7 +10,7 @@ public class Process
 	public int BurstTime;
 	public int RemainingBurst;
 	public int Priority;
-	public int TurnaroundTime;
+	public double TurnaroundTime;
 	public boolean Executed = false;
 	private boolean Executing = false;
 		
@@ -21,6 +21,22 @@ public class Process
 		BurstTime = Burst;
 		RemainingBurst = Burst;
 		this.Priority = Priority;
+	}
+	
+	public void execute()
+	{
+		this.Executing = true;
+	}
+	
+	public void pause()
+	{
+		this.Executing = false;
+	}
+	
+	public double calculateTurnaroundTime()
+	{
+		
+		return 0;
 	}
 
 	public int compareArrival(Process p1)

@@ -1,40 +1,47 @@
 package Assignment2;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class CPU
 {	
-	private Queue<Queue<Process>> Queues; // Holds 3 Queues of High/Mid/Low tasks
 	private Queue<Process> HighProcesses;
 	private Queue<Process> MidProcesses;
 	private Queue<Process> LowProcesses;
 	private Queue<Process> Jobs;
 	
-	private long Time;
+	private long StartTime;
+	private long Time = 0;
 	
-	public CPU(Queue<Queue<Process>> queue, Queue<Process> high, Queue<Process> mid, Queue<Process> low)
+	public CPU(Queue<Process> Jobs)
 	{
-		Queues = queue;
-		HighProcesses = high;
-		MidProcesses = mid;
-		LowProcesses = low;
-		
-		init();
+		this.Jobs = Jobs;
+		setupQueues();
+		StartTime = new Date().getTime();
 	}
 	
-	private void init()
+	public void setupQueues()
 	{
-		Time = 0;
+		HighProcesses = new Queue<>(1);
+		MidProcesses = new Queue<>(2);
+		LowProcesses = new Queue<>(3);
 		
+		for(Process p : Jobs)
+		{
+			if(p.ArrivalTime == 0)
+			{
+				switch(p.Priority)
+				{
+					case 1: HighProcesses.add(p); break;
+					case 2: MidProcesses.add(p); break;
+					case 3: LowProcesses.add(p); break;
+					default: LowProcesses.add(p); break;
+				}
+			}
+		}
 		HighProcesses.setAlgorithm(new ShortestJobFirst(HighProcesses));
 		MidProcesses.setAlgorithm(new RoundRobin(MidProcesses));
 		LowProcesses.setAlgorithm(new FirstComeFirstServed(LowProcesses));
-		
-		for(Queue<Process> q : Queues)
-		{
-			for(Process p : q)
-				Jobs.add(p);
-		}
 	}
 	
 	public void start()

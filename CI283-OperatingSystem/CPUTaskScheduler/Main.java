@@ -10,15 +10,7 @@ public class Main
         /*
          * Begin by reading in the CSV File of processes
          */
-        Queue<Queue<Process>> Queue = new Queue<Queue<Process>>(0);
-        Queue<Process> jobs = new Queue<Process>(5);
-        Queue<Process> High = new Queue<Process>(1);
-        Queue<Process> Mid = new Queue<Process>(2);
-        Queue<Process> Low = new Queue<Process>(3);
-        Queue.add(High);
-        Queue.add(Mid);
-        Queue.add(Low);
-
+        Queue<Process> jobs = new Queue<Process>(0);
         Process p;
 
         String csvFile = "processes.csv";
@@ -42,21 +34,13 @@ public class Main
 
                 p = new Process(PID, Arrival, Burst, Priority);
                 jobs.add(p);
-                
-                switch(Priority)
-                {
-	                case 1: High.add(p); break;
-	                case 2: Mid.add(p); break;
-	                case 3: Low.add(p); break;
-	                default: Low.add(p); break;
-                }                
             }
             lineContent = br.readLine();
             line++;
         }
 
         br.close();
-        CPU cpu = new CPU(Queue, High, Mid, Low);
+        CPU cpu = new CPU(jobs);
         cpu.start();
         /*
         TODO:
