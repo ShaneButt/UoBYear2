@@ -13,7 +13,7 @@ public class Main
         Queue<Process> jobs = new Queue<Process>(0);
         Process p;
 
-        String csvFile = "processes.csv";
+        String csvFile = "processes2.csv";
         InputStream filePath = Main.class.getResourceAsStream(csvFile);
         String lineContent;
         String[] data;
@@ -38,17 +38,16 @@ public class Main
             lineContent = br.readLine();
             line++;
         }
-
+        
         br.close();
         CPU cpu = new CPU(jobs);
-        cpu.start();
         /*
         TODO:
-            * RoundRobin implementation
-            * FirstComeFirstServed implementation
-            * CPU implementation
-            * Visualisation via JavaFX
-            * Aging implementation
+            * Implement the Scheduling algorithms as a base for a Multi-Level-Queue
+            * Implement visualisation (Gantt Chart) using JavaFX vis a vis XYChart
+            * Implement a Multi-Level-Feedback-Queue algorithm that handles the 3 queues
+            	and promotion/demotion of processes
+            * Should be done after that
          */
     }
 

@@ -2,57 +2,79 @@ package Assignment2;
 
 public abstract class AScheduler
 {
+	private CPU Controller;
+	protected Queue<Process> Jobs = new Queue<>(); // Holds all unavailable/not-arrived processes
+	protected Queue<Process> ReadyQueue = new Queue<>(); // Holds all available/arrived processes
 	
-	private static Queue<Process> Jobs;
-	private static Queue<Process> ReadyQueue;
+	private Process current;
 	
-	public AScheduler(Queue<Process> jobs)
+	private final int msDelay = 5;
+	
+	public AScheduler(Queue<Process> jobs, CPU controller)
 	{
+		Controller = controller;
 		setJobs(jobs);
+		updateReadyQueue(0);
 	}
 	
-	public abstract void addReady(Process job);
-	
-	public abstract void run();
+	public abstract void run(long initialTime) throws InterruptedException; // initalTime = start time of the algorithm?
 	// updates each tick
 	// does the queue need to be updated
 	// 	IE 	is any task too old? 
-	//		has a task with same priority got a shorter time to finish?
-	//		
-	// do jobs need to be enqueued to ready
-
-	public void tick(long oldTime)
-	{
-		for(Process p : ReadyQueue)
-		{
-			if(!p.isExecuting())
-				p.WaitingTime+=100;
-			else
-				p.RemainingBurst-=100;
-		}
-		updateReadyQueue(oldTime);
-	}
+	//		has a task with same priority got a higher response ratio?
+	//
+	// do jobs need to be enqueued into the ready queue?
 	
-	public static Queue<Process> getReadyQueue() {
+	public Queue<Process> getReadyQueue()
+	{
 		return ReadyQueue;
 	}
-
 	
-	public static void updateReadyQueue(long millis) {
-		for(Process p : Jobs)
+	
+	public Queue<Process> updateReadyQueue(long millis)
+	{
+		for (Process p : Jobs)
 		{
-			if(p.ArrivalTime < millis)
+			if (p.ArrivalTime <= millis / 1000 && !p.Executed)
 			{
 				ReadyQueue.add(p);
 			}
+			if (p.Executed)
+			{
+				Jobs.remove(p);
+			}
 		}
+		for (Process p : ReadyQueue)
+		{
+			if (p.Executed)
+			{
+				ReadyQueue.remove(p);
+			}
+		}
+		return ReadyQueue;
 	}
-
-	public static Queue<?> getJobs() {
+	
+	public Queue<Process> getJobs()
+	{
 		return Jobs;
 	}
-
-	public static void setJobs(Queue<Process> jobs) {
+	
+	public void setJobs(Queue<Process> jobs)
+	{
 		Jobs = jobs;
 	}
+	
+	public Process getCurrent()
+	{
+		return current;
+	}
+	
+	public void setCurrent(Process current)
+	{
+		this.current = current;
+	}
+	
+	public int getMsDelay() { return this.msDelay; }
+	
+	public CPU getCPU() { return this.Controller; }
 }
