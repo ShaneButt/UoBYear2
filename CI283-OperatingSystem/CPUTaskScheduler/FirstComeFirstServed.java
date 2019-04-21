@@ -19,7 +19,6 @@ public class FirstComeFirstServed extends AScheduler
 		long startTime = cpu.getStartTime();
 		while (!ReadyQueue.isEmpty())
 		{
-			System.out.printf("%d : %s", ReadyQueue.size(), ReadyQueue);
 			if (ReadyQueue.size() == 0)
 			{
 				do
@@ -41,7 +40,6 @@ public class FirstComeFirstServed extends AScheduler
 			}
 			long finTime = new Date().getTime();
 			cpu.setTime(finTime - startTime);
-			System.out.println("Process paused or executed at: " + (finTime-startTime));
 			if (next.isExecuting())
 			{
 				Jobs.remove(next); // remove it from job list

@@ -43,7 +43,6 @@ public class Main
         CPU cpu = new CPU(jobs);
         /*
         TODO:
-            * Implement the Scheduling algorithms as a base for a Multi-Level-Queue
             * Implement visualisation (Gantt Chart) using JavaFX vis a vis XYChart
             * Implement a Multi-Level-Feedback-Queue algorithm that handles the 3 queues
             	and promotion/demotion of processes

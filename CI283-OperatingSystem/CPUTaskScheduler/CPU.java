@@ -2,7 +2,7 @@ package Assignment2;
 
 import java.util.Date;
 
-public class CPU
+class CPU
 {
 	private Queue<Process> HighProcesses;
 	private Queue<Process> MidProcesses;
@@ -11,9 +11,9 @@ public class CPU
 	
 	private Date Clock = new Date();
 	private long StartTime;
-	private long Time = 0;
+	private long Time;
 	
-	public CPU(Queue<Process> Jobs)
+	CPU(Queue<Process> Jobs)
 	{
 		this.Jobs = Jobs;
 		setupQueues();
@@ -28,7 +28,7 @@ public class CPU
 		}
 	}
 	
-	public void setupQueues()
+	private void setupQueues()
 	{
 		HighProcesses = new Queue<>(1);
 		MidProcesses = new Queue<>(2);
@@ -61,7 +61,7 @@ public class CPU
 		System.out.println("Algorithms set");
 	}
 	
-	public void start() throws InterruptedException
+	private void start() throws InterruptedException
 	{
 		/*
 		 * Runs FCFS
@@ -84,12 +84,12 @@ public class CPU
 			high.run(new Date().getTime()-StartTime);
 			mid.run(new Date().getTime()-StartTime);
 			low.run(new Date().getTime()-StartTime);
-			System.out.printf("\n\n\nCompleted: %d", getCompletedJobs());
 		}
-		System.out.println("Finished");
+		
+		System.out.printf("Finished with an average wait time of {%.3f seconds} and an average turnaround time of {%.3f seconds}.", getAverageWaitTime()/1000, getAverageTurnaroundTime()/1000);
 	}
 	
-	public int getCompletedJobs()
+	private int getCompletedJobs()
 	{
 		int completed = 0;
 		
@@ -101,19 +101,7 @@ public class CPU
 		return completed;
 	}
 	
-	public int getReadyJobs()
-	{
-		int ready = 0;
-		
-		for (Process p : Jobs)
-		{
-			if (!(p.Executed) && (Time / 1000 > p.ArrivalTime))
-				ready++;
-		}
-		return ready;
-	}
-	
-	public double getAverageWaitTime()
+	private double getAverageWaitTime()
 	{
 		int jobs = 0;
 		int totalWait = 0;
@@ -122,13 +110,13 @@ public class CPU
 			if (p.Executed)
 			{
 				jobs++;
-				totalWait += p.ExecutionTime - p.ArrivalTime;
+				totalWait += p.calculateWaitTime();
 			}
 		}
 		return (double) totalWait / jobs;
 	}
 	
-	public double getAverageTurnaroundTime()
+	private double getAverageTurnaroundTime()
 	{
 		int jobs = 0;
 		int totalTurnaround = 0;
@@ -137,64 +125,24 @@ public class CPU
 			if (p.Executed)
 			{
 				jobs++;
-				totalTurnaround += p.TurnaroundTime;
+				totalTurnaround += p.calculateTurnaroundTime();
 			}
 		}
 		return (double) totalTurnaround / jobs;
 	}
 	
-	public Queue<Process> getHighProcesses()
-	{
-		return HighProcesses;
-	}
-	
-	public void setHighProcesses(Queue<Process> highProcesses)
-	{
-		HighProcesses = highProcesses;
-	}
-	
-	public Queue<Process> getMidProcesses()
-	{
-		return MidProcesses;
-	}
-	
-	public void setMidProcesses(Queue<Process> midProcesses)
-	{
-		MidProcesses = midProcesses;
-	}
-	
-	public Queue<Process> getLowProcesses()
-	{
-		return LowProcesses;
-	}
-	
-	public void setLowProcesses(Queue<Process> lowProcesses)
-	{
-		LowProcesses = lowProcesses;
-	}
-	
-	public Queue<Process> getJobs()
-	{
-		return Jobs;
-	}
-	
-	public void setJobs(Queue<Process> jobs)
-	{
-		Jobs = jobs;
-	}
-	
-	public long getTime()
+	long getTime()
 	{
 		setTime(new Date().getTime());
 		return Time;
 	}
 	
-	public void setTime(long time)
+	void setTime(long time)
 	{
 		Time = time;
 	}
 	
-	public long getStartTime()
+	long getStartTime()
 	{
 		return StartTime;
 	}

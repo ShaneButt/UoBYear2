@@ -19,7 +19,6 @@ public class ShortestJobFirst extends AScheduler
 		long startTime = cpu.getStartTime();
 		while (!ReadyQueue.isEmpty())
 		{
-			System.out.printf("%d : %s", ReadyQueue.size(), ReadyQueue);
 			if(ReadyQueue.size()==0)
 			{
 				do

@@ -58,12 +58,23 @@ public class Process
 	
 	/*
 	 * <summary>
+	 * Calculates the waiting time
+	 */
+	public double calculateWaitTime()
+	{
+		WaitingTime = ExecutionTime-BurstTime < 0? 0 : ExecutionTime-BurstTime;
+		return WaitingTime;
+	}
+	
+	/*
+	 * <summary>
 	 * Calculates the response ratio for tie-break scenarios
 	 * Is a function of WaitingTime and BurstTime
 	 */
 	public double calculateResponseRatio()
 	{
-		ResponseRatio = (WaitingTime + BurstTime) / BurstTime;
+		calculateWaitTime();
+		ResponseRatio = ((double) WaitingTime + BurstTime) / BurstTime;
 		return ResponseRatio;
 	}
 	

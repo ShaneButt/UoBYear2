@@ -56,10 +56,11 @@ public class RoundRobin extends AScheduler
 					System.out.println("Process"+next.ProcessID+" executed at: " + (next.ExecutionTime));
 				}
 				temp_quanta = quanta;
-				long now = new Date().getTime();
-				cpu.setTime(now - startTime);
-				ReadyQueue = updateReadyQueue(now - startTime); // update ready queue
 			}
+			long now = new Date().getTime();
+			cpu.setTime(now - startTime);
+			ReadyQueue = updateReadyQueue(now - startTime); // update ready queue
+			
 		}
 	}
 }
