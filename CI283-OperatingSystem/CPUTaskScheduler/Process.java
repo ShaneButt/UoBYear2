@@ -46,6 +46,18 @@ public class Process
 		this.Executing = false;
 	}
 	
+	
+	public void promote()
+	{
+		pause();
+		Priority = (Priority>1)? Priority-- : 1;
+	}
+	
+	public void demote()
+	{
+		pause();
+		Priority = (Priority<3)? Priority++ : 3;
+	}
 	/*
 	 * <summary>
 	 * Calculates the turnaround time

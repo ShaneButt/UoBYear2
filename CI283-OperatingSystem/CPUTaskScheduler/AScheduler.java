@@ -2,11 +2,12 @@ package Assignment2;
 
 public abstract class AScheduler
 {
-	private CPU Controller;
-	protected Queue<Process> Jobs = new Queue<>(); // Holds all unavailable/not-arrived processes
-	protected Queue<Process> ReadyQueue = new Queue<>(); // Holds all available/arrived processes
-	
+	CPU Controller;
+	Queue<Process> Jobs = new Queue<>(); // Holds all unavailable/not-arrived processes
+	Queue<Process> ReadyQueue = new Queue<>(); // Holds all available/arrived processes
+	boolean canRun = false;
 	private Process current;
+	
 	
 	private final int msDelay = 5;
 	
@@ -14,7 +15,6 @@ public abstract class AScheduler
 	{
 		Controller = controller;
 		setJobs(jobs);
-		updateReadyQueue(0);
 	}
 	
 	public abstract void run(long initialTime) throws InterruptedException; // initalTime = start time of the algorithm?
@@ -25,11 +25,17 @@ public abstract class AScheduler
 	//
 	// do jobs need to be enqueued into the ready queue?
 	
+	public abstract void setupQueues(AScheduler high, AScheduler mid, AScheduler low);
+	
 	public Queue<Process> getReadyQueue()
 	{
 		return ReadyQueue;
 	}
 	
+	public void stop()
+	{
+		canRun = false;
+	}
 	
 	public Queue<Process> updateReadyQueue(long millis)
 	{

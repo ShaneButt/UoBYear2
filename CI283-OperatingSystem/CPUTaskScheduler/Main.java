@@ -13,7 +13,7 @@ public class Main
         Queue<Process> jobs = new Queue<Process>(0);
         Process p;
 
-        String csvFile = "processes2.csv";
+        String csvFile = "processes3.csv";
         InputStream filePath = Main.class.getResourceAsStream(csvFile);
         String lineContent;
         String[] data;
@@ -43,9 +43,9 @@ public class Main
         CPU cpu = new CPU(jobs);
         /*
         TODO:
-            * Implement visualisation (Gantt Chart) using JavaFX vis a vis XYChart
             * Implement a Multi-Level-Feedback-Queue algorithm that handles the 3 queues
             	and promotion/demotion of processes
+            * Implement visualisation (Gantt Chart) using JavaFX vis a vis XYChart
             * Should be done after that
          */
     }

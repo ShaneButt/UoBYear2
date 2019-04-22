@@ -55,6 +55,7 @@ class CPU
 		}
 		System.out.println("Added process to Queues");
 		System.out.printf("High: %3d, Mid: %3d, Low: %3d\n", HighProcesses.size(), MidProcesses.size(), LowProcesses.size());
+		Jobs.setAlgorithm(new MultiLevelFeedbackQueue(Jobs, this));
 		HighProcesses.setAlgorithm(new ShortestJobFirst(HighProcesses, this));
 		MidProcesses.setAlgorithm(new RoundRobin(MidProcesses, this));
 		LowProcesses.setAlgorithm(new FirstComeFirstServed(LowProcesses, this));
@@ -75,21 +76,25 @@ class CPU
 		Clock = new Date();
 		StartTime = Clock.getTime();
 		Time = StartTime;
+		AScheduler jobs = Jobs.getAlgorithm();
 		AScheduler high = HighProcesses.getAlgorithm();
 		AScheduler mid = MidProcesses.getAlgorithm();
 		AScheduler low = LowProcesses.getAlgorithm();
 		
+		jobs.setupQueues(high, mid, low);
+		
 		while(getCompletedJobs() < Jobs.size())
 		{
-			high.run(new Date().getTime()-StartTime);
-			mid.run(new Date().getTime()-StartTime);
-			low.run(new Date().getTime()-StartTime);
+			jobs.run(new Date().getTime()-StartTime);
+			//high.run(new Date().getTime()-StartTime);
+			//mid.run(new Date().getTime()-StartTime);
+			//low.run(new Date().getTime()-StartTime);
 		}
 		
 		System.out.printf("Finished with an average wait time of {%.3f seconds} and an average turnaround time of {%.3f seconds}.", getAverageWaitTime()/1000, getAverageTurnaroundTime()/1000);
 	}
 	
-	private int getCompletedJobs()
+	int getCompletedJobs()
 	{
 		int completed = 0;
 		
