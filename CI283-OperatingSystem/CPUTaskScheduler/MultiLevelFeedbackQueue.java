@@ -1,17 +1,18 @@
 package Assignment2;
 
-import java.util.Date;
-
 public class MultiLevelFeedbackQueue extends AScheduler {
 	
+	// The Ready-Processes Queues that the MLFQ  handles
 	private Queue<Process> highReadyQueue = new Queue<>(1);
 	private Queue<Process> midReadyQueue = new Queue<>(2);
 	private Queue<Process> lowReadyQueue = new Queue<>(3);
 	
+	// The Algorithms that the MLFQ handles
 	private AScheduler High;
 	private AScheduler Mid;
 	private AScheduler Low;
 	
+	// When intialised updates the ready queue with 0 time and calls AScheduler constructer to set vars.
 	public MultiLevelFeedbackQueue(Queue<Process> jobs, CPU controller)
 	{
 		super(jobs, controller);
@@ -69,9 +70,10 @@ public class MultiLevelFeedbackQueue extends AScheduler {
 		for(Process p : Jobs)
 		{
 			p.calculateResponseRatio(Controller.getTime()); // calculate the response ratio of the process
-			if((double) (p.ArrivalTime*1000) <= (double) millis && !p.Executed) // if the process has arrived, add it to the ready queue it belongs to
+			if((double) (p.ArrivalTime*1000) <= (double) millis && !p.Executed) 
+				// if the process has arrived, add it to the ready queue it belongs to
 			{
-				switch (p.Priority)
+				switch (p.Priority) // switches on the priorities, 1=High, 2=Mid, 3=Low, and adds to correct ready queue
 				{
 					case 1:
 						highReadyQueue.add(p);
@@ -83,13 +85,15 @@ public class MultiLevelFeedbackQueue extends AScheduler {
 						lowReadyQueue.add(p);
 						break;
 					default:
+						// default case for if the priority is null or not between 1 and 3.
 						lowReadyQueue.add(p);
 						break;
 				}
 			}
-			if(p.Executed) // if the process has been executed, remove it from the ready queue it belongs to
+			if(p.Executed) 
+				// if the process has been executed, remove it from the ready queue it belongs to
 			{
-				switch (p.Priority)
+				switch (p.Priority) // switch on the priorities to find out which queue it belongs to
 				{
 					case 1:
 						highReadyQueue.remove(p);

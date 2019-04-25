@@ -1,19 +1,15 @@
 package Assignment2;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Date;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.chart.XYChart.Data;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -68,78 +64,75 @@ public class Main extends Application
 		new Thread(() -> {
 			try
 			{
-				Controller.run();
-				long finishTime = new Date().getTime();
-				long startTime = Controller.getStartTime();
-				int runTime = (int) (finishTime - startTime) / 1000;
-				System.out.printf("CPU Utilisation: %d%s\n", (EstimatedRuntime * 100) / runTime, "%");
+				Controller.run(); // runs the cpu until it's finished
+				long finishTime = new Date().getTime(); // initalised to current time when cpu finishes processing
+				long startTime = Controller.getStartTime(); // start time of the cpu
+				int runTime = (int) (finishTime - startTime) / 1000; // the run time of the cpu in seconds
+				System.out.printf("CPU Utilisation: %d%s\n", (EstimatedRuntime * 100) / runTime, "%"); // prints out percentage cpu utilisation
 			} catch (InterruptedException e) {}
-		}).start();
-		launch();
-        
-        /*
-        TODO:
-            * promotion/demotion of processes
-            * Should be done after that
-         */
+		}).start(); // starts the thread
+		launch(); // launches the application
 	}
 	
 	@Override
 	public void start(Stage stage) throws Exception
 	{
-		stage.setTitle("CPU Task Scheduler");
+		stage.setTitle("CPU Task Scheduler"); // sets the title of the application
 		
+		// creates new axis
 		final NumberAxis xAxis = new NumberAxis();
 		final CategoryAxis yAxis = new CategoryAxis();
+
+		// instantiates a new chart with the axis
 		final GanttChart<Number, String> chart = new GanttChart<Number, String>(xAxis, yAxis);
 		
-		xAxis.setLabel("Time (ms)");
-		xAxis.setMinorTickCount(5);
-		xAxis.setTickLabelFill(Color.DEEPSKYBLUE);
+		xAxis.setLabel("Time (ms)"); // set the x-axis label
+		xAxis.setMinorTickCount(5); // set the minor tick to 5
+		xAxis.setTickLabelFill(Color.DEEPSKYBLUE); // colour the label
 		
 		
-		yAxis.setLabel("Processes");
-		yAxis.setTickLabelGap(20);
-		yAxis.setTickLabelFill(Color.DEEPSKYBLUE);
+		yAxis.setLabel("Processes"); // set the y axis label
+		yAxis.setTickLabelGap(20); // set the tick gap
+		yAxis.setTickLabelFill(Color.DEEPSKYBLUE); // colour the label
 		
+		// set the title of the chart
 		chart.setTitle( String.format("CENTRAL PROCESSING UNIT %d/%d", Controller.getCompletedJobs(), Controller.getJobs().size()));
 		
+		// make the legend invisible
 		chart.setLegendVisible(false);
+		
+		//add the stylesheet
 		chart.getStylesheets().add(Main.class.getResource("ganttchart.css").toExternalForm());
+		
+		//initialise the chart series with items if any
 		updateChartSeries(chart);
 		
-		Scene scene = new Scene(chart, 1200, 900);
-		chart.setBlockHeight( scene.getHeight()/Controller.getJobs().size() );
+		Scene scene = new Scene(chart, 1200, 900); // create a new scene/application
 		
-		stage.setScene(scene);
-		stage.show();
+		chart.setBlockHeight( scene.getHeight()/Controller.getJobs().size() ); // set the block heigh as a function of the number of jobs
 		
+		stage.setScene(scene); // set the scene
+		stage.show(); // show the application
+		
+		// update thread to update the chart every second
 		Thread updateThread = new Thread(() -> {
 			do
 			{
 				try
 				{
-					Thread.sleep(1000);
-					Platform.runLater(() -> updateChartSeries(chart));
+					Thread.sleep(1000); // delay 1s
+					Platform.runLater(() -> updateChartSeries(chart)); // update the chart
 				} catch (InterruptedException e) {}
-			} while(Controller.getCompletedJobs() < Jobs.size());
+			} while(true); // only updates until Completed==Jobs.size()
 		});
-		updateThread.setDaemon(true);
-		updateThread.start();
+		updateThread.setDaemon(true); // jvm will only exit if the threads running are all daemon
+		updateThread.start(); // start the thread
 	}
 	
-	public String[] fillProcesses(int size)
-	{
-		String[] arr = new String[size];
-		for (int i = 1; i <= size; i++)
-		{
-			arr[i - 1] = Integer.toString(Jobs.get(i - 1).ProcessID);
-		}
-		return arr;
-	}
-	
+	// called to update the chart and add new series
 	void updateChartSeries(GanttChart<Number, String> chart)
 	{
+		// updates the title with how many seconds have passed and how many jobs have completed
 		chart.setTitle(
 				String.format(
 						"CENTRAL PROCESSING UNIT %d/%d (Clock: %s seconds)",
@@ -150,46 +143,34 @@ public class Main extends Application
 						)
 				)
 		);
-		Queue<Process> jobs = Controller.getJobs();
-		for (int i = 0; i < jobs.size(); i++)
+		
+		Queue<Process> jobs = Controller.getJobs(); // all jobs
+		
+		for (int i = 0; i < jobs.size(); i++) // run through all jobs
 		{
-			Process p = jobs.get(i);
+			Process p = jobs.get(i); // get the i'th process
 
-			if (p.ExecutionStarts.size() != p.ExecutionPauses.size())
+			if (p.ExecutionStarts.size() != p.ExecutionPauses.size()) // make sure Starts==Pauses otherwise it's still executing
 				return;
 			
-			for (int j = 0; j < p.ExecutionPauses.size(); j++)
+			for (int j = 0; j < p.ExecutionPauses.size(); j++) // run through each start
 			{
-				XYChart.Series<Number, String> series = new XYChart.Series<>();
+				Series<Number, String> series = new Series<>(); // initialise a new series
 				
-				XYChart.Data<Number, String> data = new XYChart.Data<>(
-						p.ExecutionStarts.get(j) - Controller.getStartTime(),
-						"Process"+p.ProcessID,
+				Data<Number, String> data = new Data<>(
+						p.ExecutionStarts.get(j) - Controller.getStartTime(), // x-value
+						"Process"+p.ProcessID, // y-value
 						new ExtraData(
-								(p.ExecutionPauses.get(j) - Controller.getStartTime()) - (p.ExecutionStarts.get(j) - Controller.getStartTime()),
-								(p.Priority==1)? "algorithm-fcfs" : (p.Priority==2)? "algorithm-rr" : "algorithm-sjf"
+								(p.ExecutionPauses.get(j) - Controller.getStartTime()) - (p.ExecutionStarts.get(j) - Controller.getStartTime()), // calculates length
+								(p.Priority==1)? "algorithm-fcfs" : (p.Priority==2)? "algorithm-rr" : "algorithm-sjf" // decides colour
 						)
 				);
-				if(series.getData().contains(data))
-					return;
-				series.getData().add(data);
-				chart.getData().add(series);
+				series.getData().add(data); // adds data to series
+				chart.getData().add(series); // adds series to chart
+				p.ExecutionStarts.remove(j); // removes the j'th execution start
+				p.ExecutionPauses.remove(j); // removes the j'th execution pause
 			}
 		}
 		
-	}
-	
-	void updateChart(GanttChart<Number, String> chart)
-	{
-		Queue<Process> allJobs = Controller.getJobs();
-		for(Process p : allJobs)
-		{
-			if(p.ExecutionStarts.size() != p.ExecutionPauses.size())
-				return;
-			
-			XYChart.Series<Number, String> series = new XYChart.Series<Number, String>();
-			
-		}
-	}
-	
+	}	
 }

@@ -2,10 +2,10 @@ package Assignment2;
 
 import java.util.Date;
 
-public class FirstComeFirstServed extends AScheduler
+public class ShortestRemainingTimeFirst extends AScheduler
 {
 	
-	public FirstComeFirstServed(Queue<Process> jobs, CPU controller)
+	public ShortestRemainingTimeFirst(Queue<Process> jobs, CPU controller)
 	{
 		super(jobs, controller);
 	}
@@ -64,8 +64,8 @@ public class FirstComeFirstServed extends AScheduler
 				Process next = ReadyQueue.get(i); // next is the i'th element
 				if (curr != null) // if curr is not null
 				{
-					int res = Integer.compare(next.ArrivalTime,
-							curr.ArrivalTime); // integer comparison return 1, -1, or 0
+					int res = Integer.compare(next.RemainingBurst,
+							curr.RemainingBurst); // integer comparison return 1, -1, or 0
 					if (res < 0) // if -1
 					{
 						curr = next; // current is set to next
@@ -78,7 +78,7 @@ public class FirstComeFirstServed extends AScheduler
 						int f_res = Double.compare(next_rr, curr_rr);
 						if (f_res < 0) // if -1
 						{
-							curr = next; // current is set to nex
+							curr = next; // current is set to next
 						}
 					}
 				} else

@@ -1,11 +1,11 @@
 .algorithm-fcfs {
-	-fx-background-color:rgba(90,255,165,1);
+	-fx-background-color:rgba(90,255,165,0.5);
 }
 
 .algorithm-sjf {
-	-fx-background-color:rgba(255,75,220,1);
+	-fx-background-color:rgba(255,75,220,0.5);
 }
 
 .algorithm-rr {
-	-fx-background-color:rgba(255,230,75,1);
+	-fx-background-color:rgba(255,230,75,0.5);
 }

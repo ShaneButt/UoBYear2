@@ -14,21 +14,25 @@ public class RoundRobin extends AScheduler
 	@Override
 	public void run(long start) throws InterruptedException
 	{
-		canRun = true;
-		ReadyQueue = updateReadyQueue(start);
-		Process next;
-		CPU cpu = getCPU();
-		long startTime = cpu.getStartTime();
+		canRun = true; // indicates if the algorithm has been interrupted when set to false
+		ReadyQueue = updateReadyQueue(start); // updates the ready queue
+		Process next; // empty variable for next process
+		CPU cpu = getCPU(); // holds the cpu
+		long startTime = cpu.getStartTime(); // holds the start time of the cpu
 		
-		int temp_quanta = quanta;
+		int temp_quanta = quanta; // temp_quanta holds value of quanta and allows math to be made on it such that is can always
+		// reference back to it's original value
+		
 		if(ReadyQueue.isEmpty())
-		{
+		{ // if the queue is empty do nothing
 			return;
 		}
+		
 		for (int i = 0; i < ReadyQueue.size() - 1; i++)
 		{
-			next = ReadyQueue.get(i);
-			next.execute();
+			next = ReadyQueue.get(i); // next is set to the i'th element
+			
+			next.execute(); // next is now executing
 			
 			if (next.RemainingBurst > quanta) // is the remaining burst > cycle length?
 			{
@@ -52,13 +56,13 @@ public class RoundRobin extends AScheduler
 			
 			if (next.RemainingBurst <= 0) // check if executed
 			{
+				next.pause();  // pause it
 				Jobs.remove(next); // remove it from job list
 				ReadyQueue.remove(next); // remove it from ready queue
-				next.pause(); // pause it
 				next.Executed = true; // change state to executed
 				next.ExecutionTime = (int) (new Date().getTime() - startTime); // apply execution time
 			}
-			temp_quanta = quanta;
+			temp_quanta = quanta; // reset temp_quanta
 		}
 		long now = new Date().getTime();
 		cpu.setTime(now - startTime);
@@ -68,6 +72,6 @@ public class RoundRobin extends AScheduler
 	@Override
 	public void setupQueues(AScheduler high, AScheduler mid, AScheduler low)
 	{
-	
+		// stub has no use here
 	}
 }

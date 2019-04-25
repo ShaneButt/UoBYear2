@@ -53,13 +53,14 @@ public class Process
 		this.Executing = false;
 	}
 	
-	
+	// promotes a process
 	public void promote()
 	{
 		pause();
 		Priority = (Priority>1)? Priority-- : 1;
 	}
 	
+	// demotes a process
 	public void demote()
 	{
 		pause();
@@ -103,18 +104,18 @@ public class Process
 	 */
 	public int compareArrival(Process p1)
 	{
-		return (this.ArrivalTime > p1.ArrivalTime) ? 1 : (this.ArrivalTime < p1.ArrivalTime) ? -1 : 0;
+		return Integer.compare(this.ArrivalTime, p1.ArrivalTime);
 	}
 	
 	public int compareBurst(Process p1)
 	{
 		
-		return (this.BurstTime > p1.BurstTime) ? 1 : (this.BurstTime < p1.BurstTime) ? -1 : 0;
+		return Integer.compare(this.BurstTime, p1.BurstTime);
 	}
 	
 	public int comparePriority(Process p1)
 	{
-		return (this.Priority > p1.Priority) ? 1 : (this.Priority < p1.Priority) ? -1 : 0;
+		return Integer.compare(this.Priority, p1.Priority);
 	}
 	
 	/*
