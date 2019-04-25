@@ -24,26 +24,27 @@ public class FirstComeFirstServed extends AScheduler
 		}
 		if (ReadyQueue.size() == 1)
 			next = ReadyQueue.get(0);
-		else next = getNextProcess();
+		else
+			next = getNextProcess();
 		
 		next.execute();
 		while (next.isExecuting() && next.RemainingBurst > 0 && canRun)
 		{
-			System.out.printf("%-5s: %-3d %6d\n", "FCFS", next.ProcessID, next.RemainingBurst);
 			next.RemainingBurst -= 100;
+			cpu.setTime( ( (start+=100) - cpu.getStartTime()) );
 			Thread.sleep(100);
 		}
+		
 		long finTime = new Date().getTime();
 		cpu.setTime(finTime - startTime);
 		if (next.RemainingBurst <= 0) // check if executed
 		{
+			next.pause();  // pause it
 			Jobs.remove(next); // remove it from job list
 			ReadyQueue.remove(next); // remove it from ready queue
-			next.pause(); // pause it
 			next.Executed = true; // change state to executed
-			next.ExecutionTime = (int) (new Date().getTime() - startTime); // apply execution time
-			System.out.println("Process-" + next.ProcessID + " executed at: " + (next.ExecutionTime));
-		} else System.out.println("Process-" + next.ProcessID + " paused at: " + (finTime - startTime));
+			next.ExecutionTime = (int) (finTime - startTime); // apply execution time
+		}
 		ReadyQueue = updateReadyQueue(finTime - startTime);
 	}
 	
@@ -65,8 +66,8 @@ public class FirstComeFirstServed extends AScheduler
 					}
 					if (res == 0)
 					{
-						double next_rr = next.calculateResponseRatio();
-						double curr_rr = curr.calculateResponseRatio();
+						double next_rr = next.calculateResponseRatio(Controller.getTime());
+						double curr_rr = curr.calculateResponseRatio(Controller.getTime());
 						int f_res = Double.compare(next_rr, curr_rr);
 						if (f_res < 0)
 						{

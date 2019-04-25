@@ -1,5 +1,8 @@
 package Assignment2;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Process
 {
 	
@@ -10,6 +13,8 @@ public class Process
 	public int BurstTime; // The time it will take to fully execute the process (in ms)
 	public int RemainingBurst; // The time remaining to fully execute the process
 	public int Priority; // The priority of the process
+	public ArrayList<Long> ExecutionStarts = new ArrayList<Long>();
+	public ArrayList<Long> ExecutionPauses = new ArrayList<Long>();
 	public double TurnaroundTime; // The time taken to complete the process (Execution-Arrival)
 	public double ResponseRatio; // The ratio of which determines the priority of a process ((Waiting+Burst)/Burst)
 	public boolean Executed = false; // Has the process been fully executed
@@ -34,6 +39,7 @@ public class Process
 	 */
 	public void execute()
 	{
+		this.ExecutionStarts.add(new Date().getTime());
 		this.Executing = true;
 	}
 	
@@ -43,6 +49,7 @@ public class Process
 	 */
 	public void pause()
 	{
+		this.ExecutionPauses.add(new Date().getTime());
 		this.Executing = false;
 	}
 	
@@ -64,7 +71,7 @@ public class Process
 	 */
 	public double calculateTurnaroundTime()
 	{
-		TurnaroundTime = ExecutionTime - ArrivalTime;
+		TurnaroundTime = ExecutionTime-ArrivalTime < 0? 0 : ExecutionTime-ArrivalTime;
 		return TurnaroundTime;
 	}
 	
@@ -72,9 +79,9 @@ public class Process
 	 * <summary>
 	 * Calculates the waiting time
 	 */
-	public double calculateWaitTime()
+	public double calculateWaitTime(long clockTime)
 	{
-		WaitingTime = ExecutionTime-BurstTime < 0? 0 : ExecutionTime-BurstTime;
+		WaitingTime = Math.max(0,  ExecutionTime-BurstTime);
 		return WaitingTime;
 	}
 	
@@ -83,9 +90,9 @@ public class Process
 	 * Calculates the response ratio for tie-break scenarios
 	 * Is a function of WaitingTime and BurstTime
 	 */
-	public double calculateResponseRatio()
+	public double calculateResponseRatio(long clockTime)
 	{
-		calculateWaitTime();
+		calculateWaitTime(clockTime);
 		ResponseRatio = ((double) WaitingTime + BurstTime) / BurstTime;
 		return ResponseRatio;
 	}

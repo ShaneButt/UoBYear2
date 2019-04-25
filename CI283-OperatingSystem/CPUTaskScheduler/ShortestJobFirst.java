@@ -31,8 +31,8 @@ public class ShortestJobFirst extends AScheduler
 		next.execute();
 		while (next.isExecuting() && next.RemainingBurst > 0 && canRun)
 		{
-			System.out.printf("%-5s: %-3d %6d\n", "SJF", next.ProcessID, next.RemainingBurst);
 			next.RemainingBurst -= 100;
+			cpu.setTime( (start+=100 - cpu.getStartTime()) );
 			Thread.sleep(100);
 		}
 		long finTime = new Date().getTime();
@@ -44,17 +44,13 @@ public class ShortestJobFirst extends AScheduler
 			next.pause(); // pause it
 			next.Executed = true; // change state to executed
 			next.ExecutionTime = (int) (new Date().getTime() - startTime); // apply execution time
-			System.out.println("Process-" + next.ProcessID + " executed at: " + (next.ExecutionTime));
-		} else System.out.println("Process-" + next.ProcessID + " paused at: " + (finTime - startTime));
-		
+		}		
 		ReadyQueue = updateReadyQueue(finTime - startTime);
 	}
 	
 	public Process getNextProcess()
 	{
 		Process curr = ReadyQueue.get(0);
-		//if(ReadyQueue.size()<=1)
-		//return curr;
 		if (ReadyQueue.size() > 1)
 		{
 			for (int i = 0; i < ReadyQueue.size() - 1; i++)
@@ -70,8 +66,8 @@ public class ShortestJobFirst extends AScheduler
 					}
 					if (res == 0)
 					{
-						double next_rr = next.calculateResponseRatio();
-						double curr_rr = curr.calculateResponseRatio();
+						double next_rr = next.calculateResponseRatio(Controller.getTime());
+						double curr_rr = curr.calculateResponseRatio(Controller.getTime());
 						int f_res = Double.compare(next_rr, curr_rr);
 						if (f_res < 0)
 						{

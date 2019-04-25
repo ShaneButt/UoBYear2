@@ -34,9 +34,9 @@ public class RoundRobin extends AScheduler
 			{
 				while (temp_quanta > 0 && canRun) // run through the cycle while able to (canRun assigned by MLFQ)
 				{
-					System.out.printf("%-5s: %-3d %6d\n", "RR", next.ProcessID, next.RemainingBurst);
 					next.RemainingBurst -= 100; // take off part of cycle
 					temp_quanta -= 100; // rinse the cycle track
+					cpu.setTime( (start+=100 - cpu.getStartTime()) );
 					Thread.sleep(100); // sleep repeat
 				}
 				next.pause();
@@ -44,8 +44,8 @@ public class RoundRobin extends AScheduler
 			{
 				while (next.RemainingBurst > 0 && canRun) // run through until completion
 				{
-					System.out.printf("%-5s: %-3d %6d\n", "RR", next.ProcessID, next.RemainingBurst);
 					next.RemainingBurst -= 100;
+					cpu.setTime( (start+=100 - cpu.getStartTime()) );
 					Thread.sleep(100);
 				}
 			}
@@ -57,11 +57,6 @@ public class RoundRobin extends AScheduler
 				next.pause(); // pause it
 				next.Executed = true; // change state to executed
 				next.ExecutionTime = (int) (new Date().getTime() - startTime); // apply execution time
-				System.out.println("Process-" + next.ProcessID + " executed at: " + (next.ExecutionTime));
-			}
-			else
-			{
-				System.out.println("Process-" + next.ProcessID + " paused at: " + (new Date().getTime() - startTime));
 			}
 			temp_quanta = quanta;
 		}

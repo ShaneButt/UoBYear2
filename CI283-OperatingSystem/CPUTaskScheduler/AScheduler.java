@@ -5,11 +5,8 @@ public abstract class AScheduler
 	CPU Controller;
 	Queue<Process> Jobs = new Queue<>(); // Holds all unavailable/not-arrived processes
 	Queue<Process> ReadyQueue = new Queue<>(); // Holds all available/arrived processes
-	boolean canRun = false;
+	boolean canRun = false; // scheduler is interrupted if true
 	private Process current;
-	
-	
-	private final int msDelay = 5;
 	
 	public AScheduler(Queue<Process> jobs, CPU controller)
 	{
@@ -79,8 +76,6 @@ public abstract class AScheduler
 	{
 		this.current = current;
 	}
-	
-	public int getMsDelay() { return this.msDelay; }
 	
 	public CPU getCPU() { return this.Controller; }
 }

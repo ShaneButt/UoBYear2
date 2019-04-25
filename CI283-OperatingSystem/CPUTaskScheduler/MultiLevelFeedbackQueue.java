@@ -1,5 +1,7 @@
 package Assignment2;
 
+import java.util.Date;
+
 public class MultiLevelFeedbackQueue extends AScheduler {
 	
 	private Queue<Process> highReadyQueue = new Queue<>(1);
@@ -19,7 +21,8 @@ public class MultiLevelFeedbackQueue extends AScheduler {
 	@Override
 	public void run(long start) throws InterruptedException
 	{
-		updateReadyQueues(start);
+		updateReadyQueues(start); // update the queues each run
+		Controller.setTime(start); // set the cpu time
 		/*
 		* updateReadyQueue() runs through all jobs checking their priority
 		*   updating their waitTime and responseRatio
@@ -27,31 +30,35 @@ public class MultiLevelFeedbackQueue extends AScheduler {
 		* Promote/Demote processes that wait on/hog the CPU
 		 */
 		
-		if(highReadyQueue.isEmpty() && midReadyQueue.isEmpty())
+		if(highReadyQueue.isEmpty() && midReadyQueue.isEmpty()) // if high and mid are empty
 		{
-			highReadyQueue.getAlgorithm().stop();
-			midReadyQueue.getAlgorithm().stop();
-			lowReadyQueue.getAlgorithm().run(start);
+			High.stop(); // stop high
+			Mid.stop(); // stop mid
+			Low.run(start); // run low
 		}
-		else if(highReadyQueue.isEmpty())
+		else if(highReadyQueue.isEmpty()) // if high is empty
 		{
-			highReadyQueue.getAlgorithm().stop();
-			lowReadyQueue.getAlgorithm().stop();
-			midReadyQueue.getAlgorithm().run(start);
+			High.stop(); // stop high
+			Low.stop(); // stop low
+			Mid.run(start); // run mid
 		}
-		else
+		else // high is not empty
 		{
-			highReadyQueue.getAlgorithm().run(start);
+			Low.stop(); // stop low
+			Mid.stop(); // stop mid
+			High.run(start); // run high
 		}
 	}
 	
 	@Override
 	public void setupQueues(AScheduler high, AScheduler mid, AScheduler low)
 	{
+		// Sets up the ready queue's algorithms
 		highReadyQueue.setAlgorithm(high);
 		midReadyQueue.setAlgorithm(mid);
 		lowReadyQueue.setAlgorithm(low);
 		
+		// Sets the algorithms
 		High = high;
 		Mid = mid;
 		Low = low;
@@ -61,8 +68,8 @@ public class MultiLevelFeedbackQueue extends AScheduler {
 	{
 		for(Process p : Jobs)
 		{
-			p.calculateResponseRatio();
-			if((double) (p.ArrivalTime*1000) <= (double) millis && !p.Executed)
+			p.calculateResponseRatio(Controller.getTime()); // calculate the response ratio of the process
+			if((double) (p.ArrivalTime*1000) <= (double) millis && !p.Executed) // if the process has arrived, add it to the ready queue it belongs to
 			{
 				switch (p.Priority)
 				{
@@ -80,7 +87,7 @@ public class MultiLevelFeedbackQueue extends AScheduler {
 						break;
 				}
 			}
-			if(p.Executed)
+			if(p.Executed) // if the process has been executed, remove it from the ready queue it belongs to
 			{
 				switch (p.Priority)
 				{

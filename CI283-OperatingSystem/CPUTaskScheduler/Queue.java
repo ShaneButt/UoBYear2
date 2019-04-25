@@ -2,8 +2,6 @@ package Assignment2;
 
 import java.util.Iterator;
 
-import Assignment.Node;
-
 public class Queue<T> implements Iterable<T>
 {
 	
